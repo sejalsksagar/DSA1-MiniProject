@@ -1,10 +1,3 @@
-/*
- * messenger.cpp
- *
- *  Created on: 04-May-2021
- *      Author: ketak
- */
-
 #include<iostream>
 
 using namespace std;
@@ -96,8 +89,7 @@ user* messager::accept()
 		{
 			if (ptr1->username == tmp->username)
 			{
-				cout << "Username not available. Please select a different one"
-						<< endl;
+				cout << "Username not available. Please select a different one"<< endl;
 				flag = 1;
 				break;
 			}
@@ -126,8 +118,7 @@ void messager::create()
 		ptr->next = tmp;
 		tmp->prev = ptr;
 	}
-	cout
-			<< "\nYour account has successfully created. Please login to continue.";
+	cout<< "\nYour account has successfully created. Please login to continue.";
 }
 
 void messager::login()
