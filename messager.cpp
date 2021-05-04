@@ -1,10 +1,3 @@
-/*
- * messager.cpp
- *
- *  Created on: 04-May-2021
- *      Author: sejal
- */
-
 #include<iostream>
 
 using namespace std;
