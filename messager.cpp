@@ -1,10 +1,3 @@
-/*
- * messager.cpp
- *
- *  Created on: 04-May-2021
- *      Author: ketak
- */
-
 #include<iostream>
 
 using namespace std;
@@ -143,6 +136,7 @@ void messager::login()
 			cin >> pw;
 			if (ptr->password == pw)
 			{
+				ptr->logged_in = true;
 				cout << "\nSuccessfully logged in.";
 				activity(ptr);
 				return;
@@ -173,9 +167,48 @@ void messager::activity(user *ptr)
 		switch (ch)
 		{
 			case 0:
+				ptr->logged_in = false;
 				cout << "\nSuccessfully logged out.";
 				return;
 
+			case 2:
+				string to;
+				string messg;
+				user *ptr1;
+				int flag = 0;
+				if (ptr->logged_in)
+				{
+
+					do
+					{
+						cout
+								<< "Enter username to whom you want to send the message : ";
+						cin >> to;
+						ptr1 = start;
+						while (ptr1 != NULL)
+						{
+							if (ptr1->username == to)
+							{
+								cout << "Enter message you want to send to @"
+										<< to << " : ";
+								cin >> messg;
+								cout << "Message sent successfully to @" << to
+										<< endl;
+								flag = 1;
+								break;
+							}
+							ptr1 = ptr1->next;
+						}
+						if (ptr1 == NULL)
+						{
+							cout
+									<< "Username not available. Please select a different one";
+						}
+					} while (flag == 0);
+				}
+				else
+					cout << "\nYou are not logged in!!";
+				break;
 		}
 
 	} while (ch != 0);
@@ -211,4 +244,3 @@ int main()
 	} while (ch != 0);
 	return 0;
 }
-
