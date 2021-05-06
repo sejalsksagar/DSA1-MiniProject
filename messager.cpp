@@ -4,6 +4,7 @@ using namespace std;
 
 class msg
 {
+	public:
 		bool sent;
 		bool read;
 		string to;
@@ -11,7 +12,6 @@ class msg
 		string text;
 		msg *link;
 
-	public:
 		msg()
 		{
 			sent = false;
@@ -25,6 +25,7 @@ class msg
 
 class user
 {
+	public:
 		bool logged_in;
 		string username;
 		string password;
@@ -33,7 +34,6 @@ class user
 		user *next;
 		user *prev;
 		friend class messager;
-	public:
 		user()
 		{
 			logged_in = false;
@@ -63,7 +63,7 @@ class messager
 		void activity(user *ptr);
 		void display();
 		void read_msg();
-		void send_msg();
+		msg* send_msg();
 		void remove();
 };
 
@@ -151,6 +151,50 @@ void messager::login()
 	cout << "Username not found.";
 }
 
+msg* messager::send_msg()
+{
+	msg *m = new msg();
+	user *ptr1;
+	int flag = 0;
+	do
+	{
+		cout << "Enter username to whom you want to send the message : ";
+		cin >> m->to;
+		ptr1 = start;
+		while (ptr1 != NULL)
+		{
+			if (ptr1->username == m->to)
+			{
+				cout << "Enter message you want to send to @" << m->to << " : ";
+				cin >> m->text;
+				cout << "Message sent successfully to @" << m->to << endl;
+				m->sent = true;
+				flag = 1;
+				if (ptr1->headR == NULL)
+				{
+					ptr1->headR = m;
+				}
+				else
+				{
+					msg *pointer = ptr1->headR;
+					while (pointer->link != NULL)
+					{
+						pointer = pointer->link;
+					}
+					pointer->link = m;
+				}
+				return m;
+			}
+			ptr1 = ptr1->next;
+		}
+		if (ptr1 == NULL)
+		{
+			cout << "Username not available. Please select a different one.\n";
+		}
+	} while (flag == 0);
+	return m;
+}
+
 void messager::activity(user *ptr)
 {
 	int ch;
@@ -161,6 +205,7 @@ void messager::activity(user *ptr)
 		cout << "\n0. Logout";
 		cout << "\n1. Read a message";
 		cout << "\n2. Send a message";
+		cout << "\n3. Show my sent history";
 		cout << "\nEnter your choice: ";
 		cin >> ch;
 
@@ -172,39 +217,40 @@ void messager::activity(user *ptr)
 				return;
 
 			case 2:
-				string to;
-				string messg;
-				user *ptr1;
-				int flag = 0;
 				if (ptr->logged_in)
 				{
-
-					do
+					if (ptr->headS == NULL)
+						ptr->headS = send_msg();
+					else
 					{
-						cout
-								<< "Enter username to whom you want to send the message : ";
-						cin >> to;
-						ptr1 = start;
-						while (ptr1 != NULL)
+						msg *pointer = ptr->headS;
+						while (pointer->link != NULL)
 						{
-							if (ptr1->username == to)
-							{
-								cout << "Enter message you want to send to @"
-										<< to << " : ";
-								cin >> messg;
-								cout << "Message sent successfully to @" << to
-										<< endl;
-								flag = 1;
-								break;
-							}
-							ptr1 = ptr1->next;
+							pointer = pointer->link;
 						}
-						if (ptr1 == NULL)
+						pointer->link = send_msg();
+					}
+				}
+				else
+					cout << "\nYou are not logged in!!";
+				break;
+
+			case 3:
+				if (ptr->logged_in)
+				{
+					if (ptr->headS == NULL)
+						cout << "You have not sent any messages!!\n";
+					else
+					{
+						msg *pointer1 = ptr->headS;
+						while (pointer1 != NULL)
 						{
-							cout
-									<< "Username not available. Please select a different one";
+							cout << "To : " << pointer1->to;
+							cout << "\nMessage : " << pointer1->text;
+							cout << "\n-------------------------------\n";
+							pointer1 = pointer1->link;
 						}
-					} while (flag == 0);
+					}
 				}
 				else
 					cout << "\nYou are not logged in!!";
