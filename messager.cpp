@@ -55,7 +55,8 @@ class user
 		void msg_options(string title, msg *head);
 		void display_msgs(string title, msg *head);
 		void read_msg(msg *head);
-
+		void del_msg(msg **head);
+		void starUnstar_msg(msg *m);
 };
 
 void user::msg_options(string title, msg *head)
@@ -77,44 +78,55 @@ void user::msg_options(string title, msg *head)
 
 		switch (ch)
 		{
-			case 0: break;
+			case 0:
+				break;
 
-			case 1: read_msg(head);
-					break;
+			case 1:
+				read_msg(head);
+				break;
 
-			case 2: //ak headR
-					break;
+			case 2:
+				del_msg(&head);
+				break;
 
-			case 3: //ak
-					break;
+			case 3:
+				starUnstar_msg(head);
+				break;
 		}
 	} while (ch != 0);
 }
 
 void user::display_msgs(string title, msg *head)
 {
-	string R[] = {"unread", "read"};
-	string S[] = {"unstarred", "starred"};
-	cout << "\n******************************* " << title << " *******************************";
+	string R[] =
+	{ "unread", "read" };
+	string S[] =
+	{ "unstarred", "starred" };
+	cout << "\n******************************* " << title
+			<< " *******************************";
 
 	if (head == NULL)
 		cout << "\nNo messages to display yet!\n";
 	else
 	{
 		int i = 1;
-		cout << "\n-------------------------------------------------------------------------------------------------";
+		cout
+				<< "\n-------------------------------------------------------------------------------------------------";
 		cout << "\n" << setw(5) << "No." << setw(15) << "From" << setw(15)
 				<< "To" << setw(15) << "Message" << setw(14) << "When"
-				<< setw(10) << "Read" << setw(14) << "Starred";
-		cout << "\n-------------------------------------------------------------------------------------------------";
+				<< setw(10) << "Status" << setw(14) << "Starred";
+		cout
+				<< "\n-------------------------------------------------------------------------------------------------";
 
 		msg *m = head;
 		while (m != NULL)
 		{
-			cout << "\n" << setw(5) << i << setw(15) << m->from << setw(15) << m->to
-					<< setw(15) << m->text.substr(0, 8) << "..." << setw(14) << m->dt.substr(4, 6)
-					<< setw(10) << R[m->read] << setw(14) << S[m->star];
-			cout << "\n-------------------------------------------------------------------------------------------------";
+			cout << "\n" << setw(5) << i << setw(15) << m->from << setw(15)
+					<< m->to << setw(15) << m->text.substr(0, 8) << "..."
+					<< setw(14) << m->dt.substr(4, 6) << setw(10) << R[m->read]
+					<< setw(14) << S[m->star];
+			cout
+					<< "\n-------------------------------------------------------------------------------------------------";
 			m = m->link;
 			i++;
 		}
@@ -144,15 +156,89 @@ void user::read_msg(msg *head)
 				return;
 			}
 		}
-		cout << "\n..................................................................";
+		cout
+				<< "\n..................................................................";
 		cout << "\n************** MESSAGE " << no << " **************";
 		cout << "\nFrom : " << ptr->from;
 		cout << "\nTo : " << ptr->to;
 		cout << "\nWhen : " << ptr->dt;
 		cout << "\nMessage : \n" << ptr->text;
-		cout << "\n...................................................................\n";
+		cout
+				<< "\n...................................................................\n";
 		ptr->read = true;
 	}
+}
+
+void user::del_msg(msg **head)
+{
+	int num;
+	if (head == NULL)
+	{
+		cout << "No messages found.\n";
+		return;
+	}
+	cout << "\nEnter message no. to delete:";
+	cin >> num;
+	if (num < 1)
+	{
+		cout << "\nInvalid message no.";
+		return;
+	}
+
+	msg *ptr = *head;
+	msg *prev = *head;
+	if (num == 1)
+	{
+		*head = ptr->link;
+		cout << "Message deleted successfully!!\n";
+		delete ptr;
+		return;
+	}
+
+	for (int i = 1; i < num; i++)
+	{
+		prev = ptr;
+		ptr = ptr->link;
+		if (ptr == NULL)
+		{
+			cout << "Invalid message number\n";
+			return;
+		}
+	}
+	prev->link = ptr->link;
+	cout << "Message deleted successfully!!\n";
+	delete ptr;
+}
+
+void user::starUnstar_msg(msg *head)
+{
+	int no;
+	if (head != NULL)
+	{
+		cout << "\n\nEnter message no. to read:";
+		cin >> no;
+
+		if (no < 1)
+		{
+			cout << "\nInvalid message no.";
+			return;
+		}
+		msg *ptr = head;
+		for (int i = 1; i < no; i++)
+		{
+			ptr = ptr->link;
+			if (ptr == NULL)
+			{
+				cout << "\nInvalid message no.";
+				return;
+			}
+		}
+		if (ptr->star == false)
+			ptr->star = true;
+		else
+			ptr->star = false;
+	}
+
 }
 
 class messager
@@ -174,9 +260,6 @@ class messager
 
 		msg* msg_sent(); //takes input to send msg, updates receiver's inbox & returns pointer to sent msg
 		void send_msg(user *ptr); //calls msg_sent() & updates user's sent msg sll
-
-		void del_msg();
-		void star_msg(msg *m);
 };
 
 //returns true if no user has created account yet
@@ -350,12 +433,13 @@ msg* messager::msg_sent()
 		{
 			if (ptrT->username == m->to)
 			{
-				cout << "\nEnter message you want to send to @" << m->to << " :\n";
+				cout << "\nEnter message you want to send to @" << m->to
+						<< " :\n";
 				getline(cin, m->text);
 
 				m->read = false;
-				time_t now = time(0);	// current date/time based on current system
-			    m->dt = ctime(&now);	// convert now to string form
+				time_t now = time(0); // current date/time based on current system
+				m->dt = ctime(&now);	// convert now to string form
 				flag = 1;
 				cout << "\nMessage sent successfully to @" << m->to;
 
@@ -397,7 +481,8 @@ void messager::activity(user *ptr)
 	int ch;
 	do
 	{
-		cout << "\n************* HELLO @" << ptr->username << " ! *************";
+		cout << "\n************* HELLO @" << ptr->username
+				<< " ! *************";
 		cout << "\n0. Logout";
 		cout << "\n1. Check inbox messages";
 		cout << "\n2. Send a message";
@@ -411,29 +496,34 @@ void messager::activity(user *ptr)
 		cout << "\n--------------------------------------------\n";
 		switch (ch)
 		{
-			case 0: ptr->logged_in = false;
-					cout << "\nSuccessfully logged out.";
-					return;
+			case 0:
+				ptr->logged_in = false;
+				cout << "\nSuccessfully logged out.";
+				return;
 
-			case 1: ptr->msg_options("INBOX", ptr->headR);
-					break;
+			case 1:
+				ptr->msg_options("INBOX", ptr->headR);
+				break;
 
-			case 2: send_msg(ptr);
-					break;
+			case 2:
+				send_msg(ptr);
+				break;
 
-			case 3: ptr->msg_options("SENT", ptr->headS);
-					break;
+			case 3:
+				ptr->msg_options("SENT", ptr->headS);
+				break;
 
 			case 4: //am
-					break;
+				break;
 
 			case 5: //am
-					break;
+				break;
 
 			case 6:
-					break;
+				break;
 
-			default: cout << "\nInvalid choice";
+			default:
+				cout << "\nInvalid choice";
 		}
 
 	} while (ch != 0);
@@ -457,19 +547,24 @@ int main()
 
 		switch (ch)
 		{
-			case 0: cout << "\n********* PROGRAM ENDED **********";
-					break;
+			case 0:
+				cout << "\n********* PROGRAM ENDED **********";
+				break;
 
-			case 1: A.create();
-					break;
+			case 1:
+				A.create();
+				break;
 
-			case 2: A.login();
-					break;
+			case 2:
+				A.login();
+				break;
 
-			case 3: A.remove();
-					break;
+			case 3:
+				A.remove();
+				break;
 
-			default: cout << "\nInvalid choice";
+			default:
+				cout << "\nInvalid choice";
 		}
 
 	} while (ch != 0);
