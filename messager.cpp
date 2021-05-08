@@ -168,7 +168,7 @@ class messager
 		user* accept();		//takes input required while creating a new account
 		void create(); //creates new user account & adds it to user dll(sign-up)
 		void login();  		//to login to an existing account
-		void remove(user *ptr); 		//to delete your account
+		void remove(); 		//to delete your account
 
 		void activity(user *ptr);
 
@@ -266,7 +266,72 @@ void messager::login()
 }
 
 //to delete your account //removes ptr from user dll
-//void messager :: remove(user *ptr)
+void messager::remove()
+{
+	string userName;
+	string passWord;
+	cout << "\nEnter username: ";
+	cin >> userName;
+	cout << "\nEnter password: ";
+	cin >> passWord;
+
+	user *pre_node;
+	user *current;
+
+	if (start == NULL)
+	{
+		cout << "No users are present.\n";
+		return;
+	}
+
+	// If the user is present at 1st position
+	if (start->username == userName && start->password == passWord)
+	{
+		if (start->next != NULL)
+		{
+			start->next->prev = NULL;
+			start = start->next;
+			return;
+		}
+		else // only one user present
+		{
+			start = NULL;
+			cout << "No users available now.\n";
+			return;
+		}
+		cout << "User " << start->username << " deleted.\n";
+	}
+	else if (start->username
+			!= userName&& start->password != passWord && start->next == NULL)
+	{
+		cout << "not found in the list\n" << userName << " " << passWord
+				<< endl;
+		return;
+	}
+
+	current = start;
+
+	while (current->next != NULL && current->username != userName
+			&& current->password != passWord)
+	{ // traverse the list
+		pre_node = current;
+		current = current->next;
+	}
+
+	if (current->username == userName && current->password == passWord)
+	{
+		cout << "User " << current->username << " deleted.\n";
+		pre_node->next = pre_node->next->next;
+
+		if (pre_node->next != NULL)
+		{          // link back
+			pre_node->next->prev = pre_node;
+		}
+		free(current);
+	}
+	else
+		cout << "Entered user not present.\n";
+}
 
 //takes input to send msg, updates receiver's inbox & returns pointer to sent msg
 msg* messager::msg_sent()
@@ -405,7 +470,8 @@ int main()
 				A.login();
 				break;
 
-			case 3: //A.remove(); //am
+			case 3:
+				A.remove();
 				break;
 
 			default:
