@@ -333,7 +333,7 @@ void messager::display_sent(user *ptr)
 		cout
 				<< "\n-------------------------------------------";
 		cout << "\n" << setw(5) << "Sr no." << setw(15) << "To" << setw(15)
-				<< "Message";// << setw(10) << "Read" << setw(10) << "Starred";
+				<< "Message";
 		cout
 				<< "\n-------------------------------------------";
 
