@@ -215,7 +215,7 @@ void user::starUnstar_msg(msg *head)
 	int no;
 	if (head != NULL)
 	{
-		cout << "\n\nEnter message no. to read:";
+		cout << "\n\nEnter message no. to be starred:";
 		cin >> no;
 
 		if (no < 1)
