@@ -148,6 +148,7 @@ void user::read_msg(msg *head)
 
 		cout << "\n******* MESSAGE " << no << " ********";
 		cout << "\nFrom : " << ptr->from;
+		cout << "\nTo : " << ptr->to;
 		cout << "\nMessage : " << ptr->text;
 		cout << "\n-------------------------------\n";
 		ptr->read = true;
@@ -299,7 +300,7 @@ msg* messager::msg_sent()
 		}
 
 		if (ptrT == NULL)
-			cout << "\nEntered username doesn't exist.";
+			cout << "\nEntered username doesn't exist.\n";
 
 	} while (flag == 0);
 	return m;
