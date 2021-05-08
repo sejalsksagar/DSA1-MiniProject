@@ -49,7 +49,6 @@ class user
 			next = NULL;
 			prev = NULL;
 		}
-
 };
 
 class messager
@@ -63,7 +62,7 @@ class messager
 
 		bool is_empty();	//returns true if no user has created account yet
 		user* accept();		//takes input required while creating a new account
-		void create(); 		//creates new user account & adds it to user dll(sign-up)
+		void create(); //creates new user account & adds it to user dll(sign-up)
 		void login();  		//to login to an existing account
 		void remove(user *ptr); 		//to delete your account
 
@@ -73,16 +72,15 @@ class messager
 		void inbox_options(user *ptr);
 		void read_inbox_msg(user *ptr);		//to read an inbox msg
 
-		msg* msg_sent();		//takes input to send msg, updates receiver's inbox & returns pointer to sent msg
-		void send_msg(user *ptr);		//calls msg_sent() & updates user's sent msg sll
+		msg* msg_sent();//takes input to send msg, updates receiver's inbox & returns pointer to sent msg
+		void send_msg(user *ptr);//calls msg_sent() & updates user's sent msg sll
 		void display_sent(user *ptr);  //similar to display_inbox(user *ptr);
-		void view_sent_msg(user *ptr);		//similar to void read_inbox_msg(user *ptr);
+		void view_sent_msg(user *ptr); //similar to void read_inbox_msg(user *ptr);
 
 		void del_msg();
 		void display_trash();
 		void star_msg(msg *m);
 		void display_starred();
-
 
 };
 
@@ -140,7 +138,7 @@ void messager::create()
 		ptr->next = tmp;
 		tmp->prev = ptr;
 	}
-	cout<< "\nYour account has successfully created!";
+	cout << "\nYour account has successfully created!";
 }
 
 //to login to an existing account
@@ -176,34 +174,41 @@ void messager::login()
 //void messager :: remove(user *ptr)
 
 //displays list of received msgs
-void messager :: display_inbox(user *ptr)
+void messager::display_inbox(user *ptr)
 {
-	cout<<"\n************* INBOX **************";
+	cout << "\n************* INBOX **************";
 
 	if (ptr->headR == NULL)
 		cout << "\nYou haven't received any messages yet!\n";
 	else
 	{
 		int i = 1;
-		cout << "\n----------------------------------------------------------------";
-		cout<<"\n"<<setw(5)<<"Sr no."<<setw(15)<<"From"<<setw(15)<<"Message"<<setw(10)<<"Read"<<setw(10)<<"Starred";
-		cout << "\n----------------------------------------------------------------";
+		cout
+				<< "\n----------------------------------------------------------------";
+		cout << "\n" << setw(5) << "Sr no." << setw(15) << "From" << setw(15)
+				<< "Message" << setw(10) << "Read" << setw(10) << "Starred";
+		cout
+				<< "\n----------------------------------------------------------------";
 
 		msg *ptrR = ptr->headR;
 		while (ptrR != NULL)
 		{
-			cout<<"\n"<<setw(5)<<i<<setw(15)<<ptrR->from<<setw(15)<<ptrR->text.substr(0, 10)<<"..."<<setw(10)<<ptrR->read<<setw(10)<<ptrR->star;
-			cout << "\n----------------------------------------------------------------";
+			cout << "\n" << setw(5) << i << setw(15) << ptrR->from << setw(15)
+					<< ptrR->text.substr(0, 10) << "..." << setw(10)
+					<< ptrR->read << setw(10) << ptrR->star;
+			cout
+					<< "\n----------------------------------------------------------------";
 			ptrR = ptrR->link;
 			i++;
 		}
 	}
 }
 
-void messager :: inbox_options(user *ptr)
+void messager::inbox_options(user *ptr)
 {
 	int ch;
-	do{
+	do
+	{
 		display_inbox(ptr);
 		cout << "\n********* INBOX OPTIONS **********";
 		cout << "\n0. Exit";
@@ -213,45 +218,46 @@ void messager :: inbox_options(user *ptr)
 		cout << "\nEnter your choice: ";
 		cin >> ch;
 
-		switch(ch)
-			{
-			case 0: cout<<"\n------------------------------------";
-					break;
+		switch (ch)
+		{
+			case 0:
+				cout << "\n------------------------------------";
+				break;
 
-			case 1: read_inbox_msg(ptr);
-					break;
+			case 1:
+				read_inbox_msg(ptr);
+				break;
 
 			case 2: //ak headR
-					break;
+				break;
 
 			case 3: //ak
-					break;
-			}
-	}while(ch!=0);
+				break;
+		}
+	} while (ch != 0);
 }
 
 //to read an inbox msg
-void messager :: read_inbox_msg(user *ptr)
+void messager::read_inbox_msg(user *ptr)
 {
 	int no;
 	if (ptr->headR != NULL)
 	{
-		cout<<"\n\nEnter message no. to read:";
-		cin>>no;
+		cout << "\n\nEnter message no. to read:";
+		cin >> no;
 
 		msg *mR = ptr->headR;
-		for (int i=1; i<no; i++)
+		for (int i = 1; i < no; i++)
 		{
 			mR = mR->link;
-			if(mR == NULL)
+			if (mR == NULL)
 			{
-				cout<<"\nInvalid message no.";
+				cout << "\nInvalid message no.";
 				return;
 			}
 		}
 
-
-		cout << "\n******* MESSAGE "<<no<<" ********";
+		cout << "\n******* MESSAGE " << no << " ********";
 		cout << "\nFrom : " << mR->from;
 		cout << "\nMessage : " << mR->text;
 		cout << "\n-------------------------------\n";
@@ -260,7 +266,7 @@ void messager :: read_inbox_msg(user *ptr)
 }
 
 //takes input to send msg, updates receiver's inbox & returns pointer to sent msg
-msg* messager :: msg_sent()
+msg* messager::msg_sent()
 {
 	msg *m = new msg();
 	user *ptrT; //pointer To whom user is sending msg
@@ -276,7 +282,8 @@ msg* messager :: msg_sent()
 		{
 			if (ptrT->username == m->to)
 			{
-				cout << "\nEnter message you want to send to @" << m->to << " :\n";
+				cout << "\nEnter message you want to send to @" << m->to
+						<< " :\n";
 				getline(cin, m->text);
 				cout << "\nMessage sent successfully to @" << m->to;
 				m->read = false;
@@ -297,7 +304,7 @@ msg* messager :: msg_sent()
 }
 
 //calls msg_sent() & updates user's sent msg sll
-void messager :: send_msg(user *ptr)
+void messager::send_msg(user *ptr)
 {
 	msg *ms = msg_sent(); //pointer to sent msg
 	ms->from = ptr->username;
@@ -314,24 +321,63 @@ void messager :: send_msg(user *ptr)
 	ptr->headS = m;
 }
 
-void messager :: view_sent_msg(user *ptr)
+void messager::display_sent(user *ptr)
 {
+	cout << "\n************* SENT BOX **************";
+
 	if (ptr->headS == NULL)
-		cout << "You haven't sent any messages yet!\n";
+		cout << "\nYou haven't sent any messages yet!\n";
 	else
 	{
+		int i = 1;
+		cout
+				<< "\n-------------------------------------------";
+		cout << "\n" << setw(5) << "Sr no." << setw(15) << "To" << setw(15)
+				<< "Message";// << setw(10) << "Read" << setw(10) << "Starred";
+		cout
+				<< "\n-------------------------------------------";
+
 		msg *ptrS = ptr->headS;
 		while (ptrS != NULL)
 		{
-			cout << "\nTo : " << ptrS->to;
-			cout << "\nMessage : " << ptrS->text;
-			cout << "\n-------------------------------\n";
+			cout << "\n" << setw(5) << i << setw(15) << ptrS->to << setw(15)
+					<< ptrS->text.substr(0, 10) << "..." ;
+			cout
+					<< "\n-------------------------------------------";
 			ptrS = ptrS->link;
+			i++;
 		}
 	}
 }
 
-void messager :: activity(user *ptr)
+void messager::view_sent_msg(user *ptr)
+{
+	int no;
+	display_sent(ptr);
+	if (ptr->headS != NULL)
+	{
+		cout << "\n\nEnter message no. to view:";
+		cin >> no;
+
+		msg *mV = ptr->headS;
+		for (int i = 1; i < no; i++)
+		{
+			mV = mV->link;
+			if (mV == NULL)
+			{
+				cout << "\nInvalid message no.";
+				return;
+			}
+		}
+
+		cout << "\n******* MESSAGE " << no << " ********";
+		cout << "\nTo : " << mV->to;
+		cout << "\nMessage : " << mV->text;
+		cout << "\n-------------------------------\n";
+	}
+}
+
+void messager::activity(user *ptr)
 {
 	int ch;
 	do
@@ -350,29 +396,34 @@ void messager :: activity(user *ptr)
 
 		switch (ch)
 		{
-			case 0: ptr->logged_in = false;
-					cout << "\nSuccessfully logged out.";
-					return;
+			case 0:
+				ptr->logged_in = false;
+				cout << "\nSuccessfully logged out.";
+				return;
 
-			case 1: inbox_options(ptr);
-					break;
+			case 1:
+				inbox_options(ptr);
+				break;
 
-			case 2: send_msg(ptr);
-					break;
+			case 2:
+				send_msg(ptr);
+				break;
 
-			case 3: view_sent_msg(ptr); //ke
-					break;
+			case 3:
+				view_sent_msg(ptr); //ke
+				break;
 
 			case 4: //am
-					break;
+				break;
 
 			case 5: //am
-					break;
+				break;
 
 			case 6:
-					break;
+				break;
 
-			default: cout<<"\nInvalid choice";
+			default:
+				cout << "\nInvalid choice";
 		}
 
 	} while (ch != 0);
@@ -384,30 +435,34 @@ int main()
 	messager A;
 	do
 	{
-		cout<<"\n******** WELCOME TO MESSAGER **********";
-		cout<<"\n0. Exit application";
-		cout<<"\n1. Create new account";
-		cout<<"\n2. Login to your account";
-		cout<<"\n3. Delete an existing account";
-		cout<<"\nEnter your choice: ";
-		cin>> ch;
-		cout<<"\n------------------------------------";
+		cout << "\n******** WELCOME TO MESSAGER **********";
+		cout << "\n0. Exit application";
+		cout << "\n1. Create new account";
+		cout << "\n2. Login to your account";
+		cout << "\n3. Delete an existing account";
+		cout << "\nEnter your choice: ";
+		cin >> ch;
+		cout << "\n------------------------------------";
 
 		switch (ch)
 		{
-			case 0: cout<<"\n********* PROGRAM ENDED **********";
-					break;
+			case 0:
+				cout << "\n********* PROGRAM ENDED **********";
+				break;
 
-			case 1: A.create();
-					break;
+			case 1:
+				A.create();
+				break;
 
-			case 2: A.login();
-					break;
+			case 2:
+				A.login();
+				break;
 
 			case 3: //A.remove(); //am
-					break;
+				break;
 
-			default: cout<<"\nInvalid choice";
+			default:
+				cout << "\nInvalid choice";
 		}
 
 	} while (ch != 0);
