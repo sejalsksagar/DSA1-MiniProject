@@ -57,7 +57,7 @@ class user
 		void read_msg(msg *head);
 		void del_msg(msg **head);
 		void starUnstar_msg(msg *m);
-		void search_msg(msg *head);
+		void search_msg(string title, msg *head);
 		void view_trash();
 		void trash_options(user *ptr);
 };
@@ -628,22 +628,81 @@ void messager::send_msg(user *ptr)
 	ptr->headS = m;
 }
 
-void user::search_msg(msg *head)
+void user::search_msg(string title, msg *head)
 {
-	string userNAme;
-	cout << "Enter the username:" << endl;
-	cin >> userNAme;
-	msg *ptr1 = head;
-	while (ptr1 != NULL)
+
+	bool found = false;
+	string un;
+	cout << "\nEnter the username:";
+	cin >> un;
+
+	string R[] = { "unread", "read" };
+	string S[] = { "unstarred", "starred" };
+
+	int i = 1;
+	int ch;
+	do
 	{
-		if (ptr1->from == userNAme)
+		msg *m = head;
+		while (m != NULL)
 		{
-			cout << "Sent messages from " << ptr1->from << " to " << ptr1->to
-					<< ":" << endl;
-			cout << ptr1->text << endl;
-			ptr1 = ptr1->link;
+			if (m->from == un)
+			{
+				if(!found)
+				{
+					cout << "\n**************************** MESSAGES " << title << un << " ****************************";
+					cout << "\n-------------------------------------------------------------------------------------------------";
+					cout << "\n" << setw(5) << "No." << setw(15) << "From" << setw(15)
+							<< "To" << setw(15) << "Message" << setw(14) << "When"
+							<< setw(10) << "Status" << setw(14) << "Starred";
+					cout << "\n-------------------------------------------------------------------------------------------------";
+
+				}
+				found = true;
+				cout << "\n" << setw(5) << i << setw(15) << m->from << setw(15)
+										<< m->to << setw(15) << m->text.substr(0, 8) << "..."
+										<< setw(14) << m->dt.substr(4, 6) << setw(10) << R[m->read]
+										<< setw(14) << S[m->star];
+				cout << "\n-------------------------------------------------------------------------------------------------";
+				m = m->link;
+				i++;
+			}
 		}
-	}
+		if(!found)
+		{
+			cout << "\nNo messages found!\n";
+			return;
+		}
+
+
+		cout << "\n********* MESSAGE OPTIONS **********";
+		cout << "\n0. Exit";
+		cout << "\n1. Read a message";
+		cout << "\n2. Delete a message";
+		cout << "\n3. Star/Unstar a message";
+		cout << "\nEnter your choice: ";
+		cin >> ch;
+		cout << "\n---------------------------------------------";
+
+		switch (ch)
+		{
+			case 0:
+				break;
+
+			case 1:
+				read_msg(head);
+				break;
+
+			case 2:
+				del_msg(&head);
+				break;
+
+			case 3:
+				starUnstar_msg(head);
+				break;
+		}
+	} while (ch != 0);
+
 }
 
 void messager::activity(user *ptr)
@@ -651,13 +710,12 @@ void messager::activity(user *ptr)
 	int ch;
 	do
 	{
-		cout << "\n************* HELLO @" << ptr->username
-				<< " ! *************";
+		cout << "\n************* HELLO @" << ptr->username << " ! *************";
 		cout << "\n0. Logout";
 		cout << "\n1. Check inbox messages";
 		cout << "\n2. Send a message";
 		cout << "\n3. View sent messages";
-		cout << "\n4. Search messages sent by an user";
+		cout << "\n4. Search messages sent to an user";
 		cout << "\n5. Search messages received by an user";
 		cout << "\n6. View starred messages";
 		cout << "\n7. View deleted messages";
@@ -684,18 +742,17 @@ void messager::activity(user *ptr)
 				break;
 
 			case 4:
-				ptr->search_msg(ptr->headS);
+				ptr->search_msg("SENT TO ", ptr->headS);
 				break;
 
 			case 5:
-				ptr->search_msg(ptr->headR);
+				ptr->search_msg("RECIVED BY ", ptr->headR);
 				break;
 
 			case 6:
 				break;
 
-			case 7:
-				ptr->trash_options(ptr);
+			case 7: ptr->trash_options(ptr);
 				break;
 
 			default:
