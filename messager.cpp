@@ -263,8 +263,8 @@ void user::view_trash()
 		cout << "Trash empty\n";
 		return;
 	}
-	cout
-			<< "\n-------------------------------------------------------------------------------------------------";
+	cout << "\n******************************* TRASH *******************************";
+	cout << "\n-------------------------------------------------------------------------------------------------";
 	cout << "\n" << setw(5) << "No." << setw(15) << "From" << setw(15) << "To"
 			<< setw(15) << "Message" << setw(14) << "When" << setw(10)
 			<< "Status" << setw(14) << "Starred";
@@ -287,7 +287,7 @@ void user::view_trash()
 void user::trash_options(user *ptr)
 {
 	int ch;
-	int no;
+	unsigned int no;
 	do
 	{
 		view_trash();
@@ -309,10 +309,10 @@ void user::trash_options(user *ptr)
 			case 1:
 				cout << "\nEnter message number to delete : ";
 				cin >> no;
-				if (no >= trash.size() || no < 0)
+				if (no > trash.size() || no < 1)
 				{
 					cout << "Invalid choice.\n";
-					return;
+					return; //break;
 				}
 				trash.erase(trash.begin() + no - 1);
 				cout << "Message permanently deleted\n";
@@ -474,7 +474,7 @@ void messager::change_pw()
 	string un, pw, pw1;
 	cout << "\nEnter username: ";
 	cin >> un;
-	user *ptr = start;
+
 	for (user *ptr = start; ptr != NULL; ptr = ptr->next)
 	{
 		if (ptr->username == un)
@@ -486,7 +486,7 @@ void messager::change_pw()
 				cout << "\nEnter new password : ";
 				cin >> pw1;
 				ptr->password = pw1;
-				ptr->logged_in = true;
+
 				cout << "Password changed successfully!" << endl;
 				return;
 			}
