@@ -1,6 +1,7 @@
 #include<iostream>
 #include<iomanip>
 #include <ctime>
+#include<vector>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ class user
 		string password;
 		msg *headS; 	//sent msg sll head
 		msg *headR; 	//received msg sll head
-		msg *headT;		//trash msg sll head
+		vector<msg> trash;		//trash msg
 		user *next;
 		user *prev;
 		friend class messager;
@@ -47,7 +48,6 @@ class user
 			password = "";
 			headS = NULL;
 			headR = NULL;
-			headT = NULL;
 			next = NULL;
 			prev = NULL;
 		}
@@ -57,6 +57,9 @@ class user
 		void read_msg(msg *head);
 		void del_msg(msg **head);
 		void starUnstar_msg(msg *m);
+		void search_msg(msg *head);
+		void view_trash();
+		void trash_options(user *ptr);
 };
 
 void user::msg_options(string title, msg *head)
@@ -191,6 +194,7 @@ void user::del_msg(msg **head)
 	{
 		*head = ptr->link;
 		cout << "Message deleted successfully!!\n";
+		trash.push_back(*ptr);
 		delete ptr;
 		return;
 	}
@@ -206,6 +210,7 @@ void user::del_msg(msg **head)
 		}
 	}
 	prev->link = ptr->link;
+	trash.push_back(*ptr);
 	cout << "Message deleted successfully!!\n";
 	delete ptr;
 }
@@ -215,7 +220,7 @@ void user::starUnstar_msg(msg *head)
 	int no;
 	if (head != NULL)
 	{
-		cout << "\n\nEnter message no. to be starred:";
+		cout << "\n\nEnter message no. to read:";
 		cin >> no;
 
 		if (no < 1)
@@ -234,11 +239,125 @@ void user::starUnstar_msg(msg *head)
 			}
 		}
 		if (ptr->star == false)
+		{
 			ptr->star = true;
+			cout << "Message is starred successfully!!\n";
+		}
 		else
+		{
 			ptr->star = false;
+			cout << "Message is unstarred successfully!!\n";
+		}
 	}
 
+}
+
+void user::view_trash()
+{
+	string R[] =
+	{ "unread", "read" };
+	string S[] =
+	{ "unstarred", "starred" };
+	if (trash.size() == 0)
+	{
+		cout << "Trash empty\n";
+		return;
+	}
+	cout
+			<< "\n-------------------------------------------------------------------------------------------------";
+	cout << "\n" << setw(5) << "No." << setw(15) << "From" << setw(15) << "To"
+			<< setw(15) << "Message" << setw(14) << "When" << setw(10)
+			<< "Status" << setw(14) << "Starred";
+	cout
+			<< "\n-------------------------------------------------------------------------------------------------";
+
+	for (unsigned int i = 0; i < trash.size(); i++)
+	{
+		msg m = trash[i];
+		cout << "\n" << setw(5) << i + 1 << setw(15) << m.from << setw(15)
+				<< m.to << setw(15) << m.text.substr(0, 8) << "..." << setw(14)
+				<< m.dt.substr(4, 6) << setw(10) << setw(10) << R[m.read]
+				<< setw(14) << S[m.star];
+		;
+		cout
+				<< "\n-------------------------------------------------------------------------------------------------";
+	}
+}
+
+void user::trash_options(user *ptr)
+{
+	int ch;
+	int no;
+	do
+	{
+		view_trash();
+		if (trash.size() == 0)
+			return;
+		cout << "\n********* TRASH OPTIONS **********";
+		cout << "\n0. Exit";
+		cout << "\n1. Delete a message permanently";
+//		cout << "\n2. Retrieve a message";
+		cout << "\nEnter your choice: ";
+		cin >> ch;
+		cout << "\n---------------------------------------------";
+
+		switch (ch)
+		{
+			case 0:
+				break;
+
+			case 1:
+				cout << "\nEnter message number to delete : ";
+				cin >> no;
+				if (no >= trash.size() || no < 0)
+				{
+					cout << "Invalid choice.\n";
+					return;
+				}
+				trash.erase(trash.begin() + no - 1);
+				cout << "Message permanently deleted\n";
+				break;
+
+//			case 2:
+//				cout << "\nEnter message number to retrieve : ";
+//				cin >> no;
+//				if (no >= trash.size() || no < 0)
+//				{
+//					cout << "Invalid choice.\n";
+//					return;
+//				}
+//				msg m = trash[no - 1];
+//				m.link = NULL;
+//				if (m.to == ptr->username)
+//				{
+//					msg *trav = ptr->headR;
+//					if (ptr->headR == NULL)
+//					{
+//						ptr->headR = &m;
+//						trash.erase(trash.begin());
+//						return;
+//					}
+//					while (trav->link != NULL)
+//						trav = trav->link;
+//					trav->link = &m;
+//				}
+//				else if (m.from == ptr->username)
+//				{
+//					msg *trav = ptr->headS;
+//					if (ptr->headS == NULL)
+//					{
+//						ptr->headS = &m;
+//						trash.erase(trash.begin());
+//						return;
+//					}
+//					while (trav->link != NULL)
+//						trav = trav->link;
+//					trav->link = &m;
+//				}
+				trash.erase(trash.begin() + no - 1);
+				break;
+		}
+	} while (ch != 0);
 }
 
 class messager
@@ -260,6 +379,8 @@ class messager
 
 		msg* msg_sent(); //takes input to send msg, updates receiver's inbox & returns pointer to sent msg
 		void send_msg(user *ptr); //calls msg_sent() & updates user's sent msg sll
+
+		void change_pw();
 };
 
 //returns true if no user has created account yet
@@ -346,6 +467,37 @@ void messager::login()
 		}
 	}
 	cout << "Username not found.";
+}
+
+void messager::change_pw()
+{
+	string un, pw, pw1;
+	cout << "\nEnter username: ";
+	cin >> un;
+	user *ptr = start;
+	for (user *ptr = start; ptr != NULL; ptr = ptr->next)
+	{
+		if (ptr->username == un)
+		{
+			cout << "\nEnter previous password: ";
+			cin >> pw;
+			if (ptr->password == pw)
+			{
+				cout << "\nEnter new password : ";
+				cin >> pw1;
+				ptr->password = pw1;
+				ptr->logged_in = true;
+				cout << "Password changed successfully!" << endl;
+				return;
+			}
+			else
+			{
+				cout << "\nIncorrect previous password";
+			}
+		}
+	}
+	cout << "\nUsername not found.";
+
 }
 
 //to delete your account //removes ptr from user dll
@@ -476,6 +628,24 @@ void messager::send_msg(user *ptr)
 	ptr->headS = m;
 }
 
+void user::search_msg(msg *head)
+{
+	string userNAme;
+	cout << "Enter the username:" << endl;
+	cin >> userNAme;
+	msg *ptr1 = head;
+	while (ptr1 != NULL)
+	{
+		if (ptr1->from == userNAme)
+		{
+			cout << "Sent messages from " << ptr1->from << " to " << ptr1->to
+					<< ":" << endl;
+			cout << ptr1->text << endl;
+			ptr1 = ptr1->link;
+		}
+	}
+}
+
 void messager::activity(user *ptr)
 {
 	int ch;
@@ -513,13 +683,19 @@ void messager::activity(user *ptr)
 				ptr->msg_options("SENT", ptr->headS);
 				break;
 
-			case 4: //am
+			case 4:
+				ptr->search_msg(ptr->headS);
 				break;
 
-			case 5: //am
+			case 5:
+				ptr->search_msg(ptr->headR);
 				break;
 
 			case 6:
+				break;
+
+			case 7:
+				ptr->trash_options(ptr);
 				break;
 
 			default:
@@ -541,6 +717,7 @@ int main()
 		cout << "\n1. Create new account";
 		cout << "\n2. Login to your account";
 		cout << "\n3. Delete an existing account";
+		cout << "\n4. Change Password";
 		cout << "\nEnter your choice: ";
 		cin >> ch;
 		cout << "\n----------------------------------------";
@@ -563,6 +740,9 @@ int main()
 				A.remove();
 				break;
 
+			case 4:
+				A.change_pw();
+				break;
 			default:
 				cout << "\nInvalid choice";
 		}
