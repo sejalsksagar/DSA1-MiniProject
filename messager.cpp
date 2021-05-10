@@ -676,10 +676,6 @@ void user::search_msg(string title, msg *head)
 	}
 
 	string cmp;
-	if (title == "SENT TO ")
-		cmp = m->to;
-	else
-		cmp = m->from;
 
 	string R[] =
 	{ "unread", "read" };
@@ -694,6 +690,11 @@ void user::search_msg(string title, msg *head)
 
 		for (m = head; m != NULL; m = m->link)
 		{
+			if (title == "SENT TO ")
+				cmp = m->to;
+			else
+				cmp = m->from;
+
 			if (cmp == un)
 			{
 				if (!found)
@@ -717,9 +718,8 @@ void user::search_msg(string title, msg *head)
 				i++;
 			}
 		}
-		if (m == NULL)
+		if (m == NULL && !found)
 		{
-			found = false;
 			cout << "\nNo messages found!\n";
 			return;
 		}
