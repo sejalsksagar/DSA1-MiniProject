@@ -2,6 +2,7 @@
 #include<iomanip>
 #include <ctime>
 #include<vector>
+#include <limits>
 
 using namespace std;
 
@@ -57,9 +58,11 @@ class user
 		void read_msg(msg *head);
 		void del_msg(msg **head);
 		void starUnstar_msg(msg *m);
-		void search_msg(msg *head);
+		void search_msg(string title, msg *head);
 		void view_trash();
 		void trash_options(user *ptr);
+		void del_permanently();
+		void read_trashMsg();
 };
 
 void user::msg_options(string title, msg *head)
@@ -78,6 +81,12 @@ void user::msg_options(string title, msg *head)
 		cout << "\nEnter your choice: ";
 		cin >> ch;
 		cout << "\n---------------------------------------------";
+		while(std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+			std::cout << "\nInvalid choice. Try again. \nEnter your choice: ";
+			std::cin >> ch;
+		}
 
 		switch (ch)
 		{
@@ -143,6 +152,12 @@ void user::read_msg(msg *head)
 	{
 		cout << "\n\nEnter message no. to read:";
 		cin >> no;
+		while(std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+			std::cout << "\nInvalid choice. Try again. \nEnter message no. to read: ";
+			std::cin >> no;
+		}
 
 		if (no < 1)
 		{
@@ -182,6 +197,12 @@ void user::del_msg(msg **head)
 	}
 	cout << "\nEnter message no. to delete:";
 	cin >> num;
+	while(std::cin.fail()) {
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+		std::cout << "\nInvalid choice. Try again. \nEnter message no. to delete: ";
+		std::cin >> num;
+	}
 	if (num < 1)
 	{
 		cout << "\nInvalid message no.";
@@ -220,7 +241,7 @@ void user::starUnstar_msg(msg *head)
 	int no;
 	if (head != NULL)
 	{
-		cout << "\n\nEnter message no. to read:";
+		cout << "\n\nEnter message no. to star/unstar:";
 		cin >> no;
 
 		if (no < 1)
@@ -263,8 +284,10 @@ void user::view_trash()
 		cout << "Trash empty\n";
 		return;
 	}
-	cout << "\n******************************* TRASH *******************************";
-	cout << "\n-------------------------------------------------------------------------------------------------";
+	cout
+			<< "\n******************************* TRASH *******************************";
+	cout
+			<< "\n-------------------------------------------------------------------------------------------------";
 	cout << "\n" << setw(5) << "No." << setw(15) << "From" << setw(15) << "To"
 			<< setw(15) << "Message" << setw(14) << "When" << setw(10)
 			<< "Status" << setw(14) << "Starred";
@@ -287,7 +310,6 @@ void user::view_trash()
 void user::trash_options(user *ptr)
 {
 	int ch;
-	unsigned int no;
 	do
 	{
 		view_trash();
@@ -296,10 +318,16 @@ void user::trash_options(user *ptr)
 		cout << "\n********* TRASH OPTIONS **********";
 		cout << "\n0. Exit";
 		cout << "\n1. Delete a message permanently";
-//		cout << "\n2. Retrieve a message";
+		cout << "\n2. View a message";
 		cout << "\nEnter your choice: ";
 		cin >> ch;
 		cout << "\n---------------------------------------------";
+		while(std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+			std::cout << "\nInvalid choice. Try again. \nEnter your choice: ";
+			std::cin >> ch;
+		}
 
 		switch (ch)
 		{
@@ -307,57 +335,62 @@ void user::trash_options(user *ptr)
 				break;
 
 			case 1:
-				cout << "\nEnter message number to delete : ";
-				cin >> no;
-				if (no > trash.size() || no < 1)
-				{
-					cout << "Invalid choice.\n";
-					return; //break;
-				}
-				trash.erase(trash.begin() + no - 1);
-				cout << "Message permanently deleted\n";
+				del_permanently();
 				break;
 
-//			case 2:
-//				cout << "\nEnter message number to retrieve : ";
-//				cin >> no;
-//				if (no >= trash.size() || no < 0)
-//				{
-//					cout << "Invalid choice.\n";
-//					return;
-//				}
-//				msg m = trash[no - 1];
-//				m.link = NULL;
-//				if (m.to == ptr->username)
-//				{
-//					msg *trav = ptr->headR;
-//					if (ptr->headR == NULL)
-//					{
-//						ptr->headR = &m;
-//						trash.erase(trash.begin());
-//						return;
-//					}
-//					while (trav->link != NULL)
-//						trav = trav->link;
-//					trav->link = &m;
-//				}
-//				else if (m.from == ptr->username)
-//				{
-//					msg *trav = ptr->headS;
-//					if (ptr->headS == NULL)
-//					{
-//						ptr->headS = &m;
-//						trash.erase(trash.begin());
-//						return;
-//					}
-//					while (trav->link != NULL)
-//						trav = trav->link;
-//					trav->link = &m;
-//				}
-				trash.erase(trash.begin() + no - 1);
+			case 2:
+				read_trashMsg();
 				break;
 		}
 	} while (ch != 0);
+}
+
+void user::del_permanently()
+{
+	unsigned int no;
+	cout << "\nEnter message number to delete : ";
+	cin >> no;
+	while(std::cin.fail()) {
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+		std::cout << "\nInvalid choice. Try again.\nEnter message no. to read: ";
+		std::cin >> no;
+	}
+	if (no > trash.size() || no < 0)
+	{
+		cout << "Invalid choice.\n";
+		return;
+	}
+	trash.erase(trash.begin() + no - 1);
+	cout << "Message permanently deleted\n";
+}
+
+void user::read_trashMsg()
+{
+	unsigned int no;
+	cout << "\n\nEnter message no. to read:";
+	cin >> no;
+	while(std::cin.fail()) {
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+		std::cout << "\nInvalid choice. Try again.\nEnter message no. to read: ";
+		std::cin >> no;
+	}
+
+	if (no < 1 || no > trash.size())
+	{
+		cout << "\nInvalid message no.";
+		return;
+	}
+
+	cout << "\n..................................................................";
+	cout << "\n************** MESSAGE " << no << " **************";
+	cout << "\nFrom : " << trash[no - 1].from;
+	cout << "\nTo : " << trash[no - 1].to;
+	cout << "\nWhen : " << trash[no - 1].dt;
+	cout << "\nMessage : \n" << trash[no - 1].text;
+	cout << "\n...................................................................\n";
+	trash[no - 1].read = true;
 }
 
 class messager
@@ -628,22 +661,103 @@ void messager::send_msg(user *ptr)
 	ptr->headS = m;
 }
 
-void user::search_msg(msg *head)
+void user::search_msg(string title, msg *head)
 {
-	string userNAme;
-	cout << "Enter the username:" << endl;
-	cin >> userNAme;
-	msg *ptr1 = head;
-	while (ptr1 != NULL)
+	string un;
+	cout << "\nEnter the username: ";
+	cin >> un;
+
+	bool found = false;
+	msg *m = head;
+	if(head == NULL)
 	{
-		if (ptr1->from == userNAme)
-		{
-			cout << "Sent messages from " << ptr1->from << " to " << ptr1->to
-					<< ":" << endl;
-			cout << ptr1->text << endl;
-			ptr1 = ptr1->link;
-		}
+		cout<<"\nNo messages to display yet!";
+		return;
 	}
+
+	string cmp;
+	if (title == "SENT TO ")
+		cmp = m->to;
+	else
+		cmp = m->from;
+
+	string R[] =
+	{ "unread", "read" };
+	string S[] =
+	{ "unstarred", "starred" };
+
+	int i = 1;
+	int ch;
+	do
+	{
+		found = false;
+
+		for (m = head; m != NULL; m = m->link)
+		{
+			if (cmp == un)
+			{
+				if (!found)
+				{
+					cout << "\n**************************** MESSAGES " << title<< un << " ****************************";
+					cout<< "\n-------------------------------------------------------------------------------------------------";
+					cout << "\n" << setw(5) << "No." << setw(15) << "From"
+							<< setw(15) << "To" << setw(15) << "Message"
+							<< setw(14) << "When" << setw(10) << "Status"
+							<< setw(14) << "Starred";
+					cout<< "\n-------------------------------------------------------------------------------------------------";
+
+				}
+				found = true;
+				cout << "\n" << setw(5) << i << setw(15) << m->from << setw(15)
+						<< m->to << setw(15) << m->text.substr(0, 8) << "..."
+						<< setw(14) << m->dt.substr(4, 6) << setw(10)
+						<< R[m->read] << setw(14) << S[m->star];
+				cout<< "\n-------------------------------------------------------------------------------------------------";
+
+				i++;
+			}
+		}
+		if (m == NULL)
+		{
+			found = false;
+			cout << "\nNo messages found!\n";
+			return;
+		}
+
+		cout << "\n********* MESSAGE OPTIONS **********";
+		cout << "\n0. Exit";
+		cout << "\n1. Read a message";
+		cout << "\n2. Delete a message";
+		cout << "\n3. Star/Unstar a message";
+		cout << "\nEnter your choice: ";
+		cin >> ch;
+		cout << "\n---------------------------------------------";
+		while(std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+			std::cout << "\nInvalid choice. Try again. \nEnter your choice: ";
+			std::cin >> ch;
+		}
+
+		switch (ch)
+		{
+			case 0:
+				break;
+
+			case 1:
+				read_msg(head);
+				break;
+
+			case 2:
+				del_msg(&head);
+				break;
+
+			case 3:
+				starUnstar_msg(head);
+				break;
+		}
+	} while (ch != 0);
+
 }
 
 void messager::activity(user *ptr)
@@ -651,19 +765,24 @@ void messager::activity(user *ptr)
 	int ch;
 	do
 	{
-		cout << "\n************* HELLO @" << ptr->username
-				<< " ! *************";
+		cout << "\n************* HELLO @" << ptr->username << " ! *************";
 		cout << "\n0. Logout";
 		cout << "\n1. Check inbox messages";
 		cout << "\n2. Send a message";
 		cout << "\n3. View sent messages";
-		cout << "\n4. Search messages sent by an user";
-		cout << "\n5. Search messages received by an user";
+		cout << "\n4. Search messages sent to an user";
+		cout << "\n5. Search messages received from an user";
 		cout << "\n6. View starred messages";
 		cout << "\n7. View deleted messages";
 		cout << "\nEnter your choice: ";
 		cin >> ch;
 		cout << "\n--------------------------------------------\n";
+		while(std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+			std::cout << "\nInvalid choice. Try again. \nEnter your choice: ";
+			std::cin >> ch;
+		}
 		switch (ch)
 		{
 			case 0:
@@ -684,11 +803,11 @@ void messager::activity(user *ptr)
 				break;
 
 			case 4:
-				ptr->search_msg(ptr->headS);
+				ptr->search_msg("SENT TO ", ptr->headS);
 				break;
 
 			case 5:
-				ptr->search_msg(ptr->headR);
+				ptr->search_msg("RECEIVED FROM ", ptr->headR);
 				break;
 
 			case 6:
@@ -721,6 +840,12 @@ int main()
 		cout << "\nEnter your choice: ";
 		cin >> ch;
 		cout << "\n----------------------------------------";
+		while(std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+			std::cout << "\nInvalid choice. Try again. \nEnter your choice: ";
+			std::cin >> ch;
+		}
 
 		switch (ch)
 		{
