@@ -540,66 +540,58 @@ void messager::remove()
 	string passWord;
 	cout << "\nEnter username: ";
 	cin >> userName;
-	cout << "\nEnter password: ";
-	cin >> passWord;
+	user *ptr = start;
+	user *temp = NULL;
+	if(start == NULL)
+    {
+        cout<<"No accounts are present"<<endl;
+    }
 
-	user *pre_node;
-	user *current;
+    if(ptr->username == userName) //if the node to be deleted is head node
+        {
+            cout<<"Enter the password:"<<endl;
+            cin>>passWord;
+            if(ptr->password == passWord)
+            {
+                    start = start->next;
+                    delete(ptr);
+                    temp = start;
+                    cout<<"Account deleted successfully!"<<endl;
 
-	if (start == NULL)
-	{
-		cout << "No users are present.\n";
-		return;
-	}
+            }
+            else{
+                cout<<"Incorrect password....please try again."<<endl;
+                return;
+            }
+        }
 
-	// If the user is present at 1st position
-	if (start->username == userName && start->password == passWord)
-	{
-		if (start->next != NULL)
-		{
-			start->next->prev = NULL;
-			start = start->next;
-			return;
-		}
-		else // only one user present
-		{
-			start = NULL;
-			cout << "No users available now.\n";
-			return;
-		}
-		cout << "User " << start->username << " deleted.\n";
-	}
-	else if (start->username
-			!= userName&& start->password != passWord && start->next == NULL)
-	{
-		cout << "not found in the list\n" << userName << " " << passWord
-				<< endl;
-		return;
-	}
 
-	current = start;
+    while(ptr!=NULL) // traverse the whole list
+        {
+            if(ptr->next->username == userName)
+            {
+                cout<<"Enter the password:"<<endl;
+                  cin>>passWord;
+                     if(ptr->next->password == passWord)
+                    {
+                           temp = ptr->next;
+                           ptr->next = ptr->next->next;
+                           delete(temp);
+                           cout<<"Account deleted successfully!"<<endl;
 
-	while (current->next != NULL && current->username != userName
-			&& current->password != passWord)
-	{ // traverse the list
-		pre_node = current;
-		current = current->next;
-	}
-
-	if (current->username == userName && current->password == passWord)
-	{
-		cout << "User " << current->username << " deleted.\n";
-		pre_node->next = pre_node->next->next;
-
-		if (pre_node->next != NULL)
-		{          // link back
-			pre_node->next->prev = pre_node;
-		}
-		free(current);
-	}
-	else
-		cout << "Entered user not present.\n";
+                    }
+                    else{
+                        cout<<"Incorrect password ... please try again."<<endl;
+                        return;
+                    }
+            }
+            else{
+                cout<<"Username not found."<<endl;
+            }
+            ptr=ptr->next;
+        }
 }
+
 
 //takes input to send msg, updates receiver's inbox & returns pointer to sent msg
 msg* messager::msg_sent()
