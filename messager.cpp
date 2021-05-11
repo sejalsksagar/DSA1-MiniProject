@@ -353,7 +353,7 @@ void user::search_msg(string title, msg *head)
 	}
 
 	string cmp;
-
+	vector<msg*> results;
 	string R[] =
 	{ "unread", "read" };
 	string S[] =
@@ -389,6 +389,7 @@ void user::search_msg(string title, msg *head)
 
 				}
 				found = true;
+				results.push_back(m); //
 				cout << "\n" << setw(5) << i << setw(15) << m->from << setw(15)
 						<< m->to << setw(15) << m->text.substr(0, 8) << "..."
 						<< setw(14) << m->dt.substr(4, 6) << setw(10)
@@ -428,16 +429,42 @@ void user::search_msg(string title, msg *head)
 				break;
 
 			case 1:
-				read_msg(head, i-1, false);
+				int no;
+				cout << "\n\nEnter message no. to read:";
+				cin >> no;
+				while (std::cin.fail())
+				{
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout
+							<< "\nInvalid choice. Try again. \nEnter message no. to read: ";
+					std::cin >> no;
+				}
+
+				if (no < 1 || no > i)
+				{
+					cout << "\nInvalid message no.";
+					return;
+				}
+
+					msg *ptr = results.at(no-1);
+					cout << "\n..................................................................";
+					cout << "\n************** MESSAGE " << no << " **************";
+					cout << "\nFrom : " << ptr->from;
+					cout << "\nTo : " << ptr->to;
+					cout << "\nWhen : " << ptr->dt;
+					cout << "\nMessage : \n" << ptr->text;
+					cout << "\n...................................................................\n";
+					ptr->read = true;
 				break;
 
-			case 2:
-				del_msg(&head, i-1, false);
-				break;
-
-			case 3:
-				starUnstar_msg(head);
-				break;
+//			case 2:
+//				del_msg(&head, i-1, false);
+//				break;
+//
+//			case 3:
+//				starUnstar_msg(head);
+//				break;
 		}
 	} while (ch != 0);
 }
