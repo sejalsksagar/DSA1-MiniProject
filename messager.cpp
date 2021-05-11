@@ -58,7 +58,7 @@ class user
 		int display_msgs(string title, msg *head);//to display list of sent/inbox msg
 		void msg_options(string title, msg *head);//actions user can perform with displayed list of msg
 		void read_msg(msg *head, int total, bool starred);//to read a certain msg
-		void del_msg(msg **head);				//to delete a certain msg
+		void del_msg(msg **head, int total, bool starred);				//to delete a certain msg
 		void starUnstar_msg(msg *m);//to mark an msg as important (star) or unstar
 		void search_msg(string title, msg *head);//to search msg sent to/ received from a user
 		void view_trash();						//displays list of deleted msg
@@ -75,8 +75,7 @@ int user::display_msgs(string title, msg *head)
 	{ "unread", "read" };
 	string S[] =
 	{ "unstarred", "starred" };
-	cout << "\n******************************* " << title
-			<< " *******************************";
+	cout << "\n******************************* " << title << " *******************************";
 
 	if (head == NULL)
 	{
@@ -145,7 +144,7 @@ void user::msg_options(string title, msg *head)
 				break;
 
 			case 2:
-				del_msg(&head);
+				del_msg(&head, total_disp, false);
 				break;
 
 			case 3:
@@ -177,23 +176,23 @@ void user::read_msg(msg *head, int total, bool starred)
 			cout << "\nInvalid message no.";
 			return;
 		}
+
 		msg *ptr = head;
 		int i = 0;
-		// for starred messages
-		if (starred)
+		if (starred)	// for starred messages
 		{
 			while (ptr != NULL)
 			{
-				if (ptr->star)
+				if (ptr->star) //if(++i==no && ptr->star)
 				{
 					i++;
 					if (i == no)
 						break;
 				}
-				ptr = ptr->link;
+				 ptr = ptr->link;
 			}
 		}
-		else
+		else		//for other than starred messages
 		{
 			for (int i = 1; i < no; i++)
 			{
@@ -205,69 +204,100 @@ void user::read_msg(msg *head, int total, bool starred)
 				}
 			}
 		}
-		cout
-				<< "\n..................................................................";
+
+		cout << "\n..................................................................";
 		cout << "\n************** MESSAGE " << no << " **************";
 		cout << "\nFrom : " << ptr->from;
 		cout << "\nTo : " << ptr->to;
 		cout << "\nWhen : " << ptr->dt;
 		cout << "\nMessage : \n" << ptr->text;
-		cout
-				<< "\n...................................................................\n";
+		cout << "\n...................................................................\n";
 		ptr->read = true;
 	}
 }
 
 //to delete a certain msg //it adds the deleted msg to trash
-void user::del_msg(msg **head)
+void user::del_msg(msg **head, int total, bool starred)
 {
-	int num;
+	int no;
 	if (head == NULL)
 	{
 		cout << "No messages found.\n";
 		return;
 	}
 	cout << "\nEnter message no. to delete:";
-	cin >> num;
+	cin >> no;
 	while (std::cin.fail())
 	{
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout
-				<< "\nInvalid choice. Try again. \nEnter message no. to delete: ";
-		std::cin >> num;
+		std::cout << "\nInvalid choice. Try again. \nEnter message no. to delete: ";
+		std::cin >> no;
 	}
-	if (num < 1)
+	if (no < 1)
 	{
 		cout << "\nInvalid message no.";
 		return;
 	}
 
+	int i = 0;
 	msg *ptr = *head;
 	msg *prev = *head;
-	if (num == 1)
+	if(starred) //for starred messages
 	{
-		*head = ptr->link;
-		cout << "Message deleted successfully!!\n";
-		trash.push_back(*ptr);
-		delete ptr;
-		return;
-	}
-
-	for (int i = 1; i < num; i++)
-	{
-		prev = ptr;
-		ptr = ptr->link;
+		while (ptr != NULL)
+		{
+			if(ptr->star && ++i==no)
+				break;
+			 prev = ptr;
+			 ptr = ptr->link;
+		}
 		if (ptr == NULL)
 		{
 			cout << "Invalid message number\n";
 			return;
 		}
+
+		if (ptr==*head)	//1st starred msg is the head node
+		{
+			*head = ptr->link;
+			cout << "Message deleted successfully!!\n";
+			trash.push_back(*ptr);
+			delete ptr;
+			return;
+		}
+		prev->link = ptr->link;
+		trash.push_back(*ptr);
+		cout << "Message deleted successfully!!\n";
+		delete ptr;
 	}
-	prev->link = ptr->link;
-	trash.push_back(*ptr);
-	cout << "Message deleted successfully!!\n";
-	delete ptr;
+	else	//for other than starred messages
+	{
+		if (no == 1)
+		{
+			*head = ptr->link;
+			cout << "Message deleted successfully!!\n";
+			trash.push_back(*ptr);
+			delete ptr;
+			return;
+		}
+
+		for (int i = 1; i < no; i++)
+		{
+			prev = ptr;
+			ptr = ptr->link;
+			if (ptr == NULL)
+			{
+				cout << "Invalid message number\n";
+				return;
+			}
+		}
+		prev->link = ptr->link;
+		trash.push_back(*ptr);
+		cout << "Message deleted successfully!!\n";
+		delete ptr;
+	}
+
 }
 
 //to mark an msg as important (star) or unstar
@@ -333,6 +363,7 @@ void user::search_msg(string title, msg *head)
 	int ch;
 	do
 	{
+		i = 1;
 		found = false;
 		for (m = head; m != NULL; m = m->link)
 		{
@@ -397,20 +428,18 @@ void user::search_msg(string title, msg *head)
 				break;
 
 			case 1:
-				read_msg(head, i, false);
+				read_msg(head, i-1, false);
 				break;
 
 			case 2:
-				del_msg(&head);
+				del_msg(&head, i-1, false);
 				break;
 
 			case 3:
 				starUnstar_msg(head);
 				break;
 		}
-		i = 1;
 	} while (ch != 0);
-
 }
 
 void user::starred_msg(string title, msg *head)
@@ -434,6 +463,7 @@ void user::starred_msg(string title, msg *head)
 
 	do
 	{
+		i = 1;
 		found = false;
 		for (m = head; m != NULL; m = m->link)
 		{
@@ -498,14 +528,13 @@ void user::starred_msg(string title, msg *head)
 				break;
 
 			case 2:
-				del_msg(&head);
+				del_msg(&head, i-1, true);
 				break;
 
 			case 3:
 				starUnstar_msg(head);
 				break;
 		}
-		i = 1;
 	} while (ch != 0);
 }
 
