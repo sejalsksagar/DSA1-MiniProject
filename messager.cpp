@@ -378,7 +378,6 @@ void user::vec_del_msg(vector<msg*> results, msg **head)
 }
 
 //to search msg sent to/ received from a user
-//to search msg sent to/ received from a user
 void user::search_msg(string title, msg **head)
 {
 	string un;
