@@ -65,6 +65,7 @@ class user
 		void trash_options(user *ptr);		//actions to perform on deleted msg
 		void del_permanently();		//to delete a msg from trash (permanently)
 		void read_trashMsg();					//to read a msg in trash
+		void starred_msg(string title, msg *head);//displays list of starred msg
 };
 
 //to display list of sent/inbox msg
@@ -311,7 +312,6 @@ void user::search_msg(string title, msg *head)
 	do
 	{
 		found = false;
-
 		for (m = head; m != NULL; m = m->link)
 		{
 			if (title == "SENT TO ")
@@ -346,6 +346,99 @@ void user::search_msg(string title, msg *head)
 				i++;
 			}
 		}
+		if (m == NULL && !found)
+		{
+			cout << "\nNo messages found!\n";
+			return;
+		}
+
+		cout << "\n********* MESSAGE OPTIONS **********";
+		cout << "\n0. Exit";
+		cout << "\n1. Read a message";
+		cout << "\n2. Delete a message";
+		cout << "\n3. Star/Unstar a message";
+		cout << "\nEnter your choice: ";
+		cin >> ch;
+		cout << "\n---------------------------------------------";
+		while (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "\nInvalid choice. Try again. \nEnter your choice: ";
+			std::cin >> ch;
+		}
+
+		switch (ch)
+		{
+			case 0:
+				break;
+
+			case 1:
+				read_msg(head);
+				break;
+
+			case 2:
+				del_msg(&head);
+				break;
+
+			case 3:
+				starUnstar_msg(head);
+				break;
+		}
+	} while (ch != 0);
+
+}
+
+void user::starred_msg(string title, msg *head){
+
+    string R[] =
+	{ "unread", "read" };
+	string S[] =
+	{ "unstarred", "starred" };
+
+	msg *m = head;
+	if (head == NULL)
+	{
+		cout << "\nNo messages to display yet!";
+		return;
+	}
+
+	int ch;
+	int i = 1;
+	bool found;
+
+	do
+	{
+		found = false;
+		for (m = head; m != NULL; m = m->link){
+
+
+			if(m->star == true){
+
+				if (!found){
+					cout << "\n**************************** STARRED MESSAGES IN "<< title << " ****************************";
+					cout
+							<< "\n-------------------------------------------------------------------------------------------------";
+					cout << "\n" << setw(5) << "No." << setw(15) << "From"
+							<< setw(15) << "To" << setw(15) << "Message"
+							<< setw(14) << "When" << setw(10) << "Status"
+							<< setw(14) << "Starred";
+					cout
+							<< "\n-------------------------------------------------------------------------------------------------";
+
+				}
+				found = true;
+				cout << "\n" << setw(5) << i << setw(15) << m->from << setw(15)
+						<< m->to << setw(15) << m->text.substr(0, 8) << "..."
+						<< setw(14) << m->dt.substr(4, 6) << setw(10)
+						<< R[m->read] << setw(14) << S[m->star];
+				cout
+						<< "\n-------------------------------------------------------------------------------------------------";
+
+				i++;
+			}
+		}
+
 		if (m == NULL && !found)
 		{
 			cout << "\nNo messages found!\n";
@@ -730,6 +823,8 @@ void messager::activity(user *ptr)
 		cout << "\n4. Search messages sent to an user";
 		cout << "\n5. Search messages received from an user";
 		cout << "\n6. View deleted messages";
+		cout << "\n7. View starred messages in Inbox";
+		cout << "\n8. View starred messages in Sentbox";
 		cout << "\nEnter your choice: ";
 		cin >> ch;
 		cout << "\n------------------------------------------\n";
@@ -770,6 +865,14 @@ void messager::activity(user *ptr)
 			case 6:
 				ptr->trash_options(ptr);
 				break;
+
+			case 7:
+			    ptr->starred_msg("INBOX ", ptr->headR);
+			    break;
+
+			case 8:
+			    ptr->starred_msg("SENTBOX ", ptr->headS);
+			    break;
 
 			default:
 				cout << "\nInvalid choice";
