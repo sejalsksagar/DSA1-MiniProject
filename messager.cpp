@@ -55,9 +55,9 @@ class user
 			prev = NULL;
 		}
 
-		int display_msgs(string title, msg *head);	//to display list of sent/inbox msg
+		int display_msgs(string title, msg *head);//to display list of sent/inbox msg
 		void msg_options(string title, msg *head);//actions user can perform with displayed list of msg
-		void read_msg(msg *head,int total);				//to read a certain msg
+		void read_msg(msg *head, int total, bool starred);//to read a certain msg
 		void del_msg(msg **head);				//to delete a certain msg
 		void starUnstar_msg(msg *m);//to mark an msg as important (star) or unstar
 		void search_msg(string title, msg *head);//to search msg sent to/ received from a user
@@ -106,7 +106,7 @@ int user::display_msgs(string title, msg *head)
 			m = m->link;
 			i++;
 		}
-		return i-1;
+		return i - 1;
 	}
 }
 
@@ -116,7 +116,7 @@ void user::msg_options(string title, msg *head)
 	int ch;
 	do
 	{
-		int total_disp=display_msgs(title, head);
+		int total_disp = display_msgs(title, head);
 		if (head == NULL)
 			return;
 		cout << "\n********* " << title << " OPTIONS **********";
@@ -141,7 +141,7 @@ void user::msg_options(string title, msg *head)
 				break;
 
 			case 1:
-				read_msg(head,total_disp);
+				read_msg(head, total_disp, false);
 				break;
 
 			case 2:
@@ -156,7 +156,7 @@ void user::msg_options(string title, msg *head)
 }
 
 //to read a certain msg
-void user::read_msg(msg *head,int total)
+void user::read_msg(msg *head, int total, bool starred)
 {
 	int no;
 	if (head != NULL)
@@ -172,19 +172,37 @@ void user::read_msg(msg *head,int total)
 			std::cin >> no;
 		}
 
-		if (no < 1 || no>total)
+		if (no < 1 || no > total)
 		{
 			cout << "\nInvalid message no.";
 			return;
 		}
 		msg *ptr = head;
-		for (int i = 1; i < no; i++)
+		int i = 0;
+		// for starred messages
+		if (starred)
 		{
-			ptr = ptr->link;
-			if (ptr == NULL)
+			while (ptr != NULL)
 			{
-				cout << "\nInvalid message no.";
-				return;
+				if (ptr->star)
+				{
+					i++;
+					if (i == no)
+						break;
+				}
+				ptr = ptr->link;
+			}
+		}
+		else
+		{
+			for (int i = 1; i < no; i++)
+			{
+				ptr = ptr->link;
+				if (ptr == NULL)
+				{
+					cout << "\nInvalid message no.";
+					return;
+				}
 			}
 		}
 		cout
@@ -379,7 +397,7 @@ void user::search_msg(string title, msg *head)
 				break;
 
 			case 1:
-				read_msg(head,i);
+				read_msg(head, i, false);
 				break;
 
 			case 2:
@@ -476,7 +494,7 @@ void user::starred_msg(string title, msg *head)
 				break;
 
 			case 1:
-				read_msg(head,i-1);
+				read_msg(head, i - 1, true);
 				break;
 
 			case 2:
@@ -487,7 +505,7 @@ void user::starred_msg(string title, msg *head)
 				starUnstar_msg(head);
 				break;
 		}
-		i=1;
+		i = 1;
 	} while (ch != 0);
 }
 
