@@ -57,8 +57,7 @@ class user
 
 		int display_msgs(string title, msg *head);//to display list of sent/inbox msg
 		void msg_options(string title, msg *head);//actions user can perform with displayed list of msg
-		void read_msg(msg *head, int total, bool starred, string title,
-				string cmp);		//to read a certain msg
+		void read_msg(msg *head, int total, bool starred);//to read a certain msg
 		void del_msg(msg **head);				//to delete a certain msg
 		void starUnstar_msg(msg *m);//to mark an msg as important (star) or unstar
 		void search_msg(string title, msg *head);//to search msg sent to/ received from a user
@@ -142,7 +141,7 @@ void user::msg_options(string title, msg *head)
 				break;
 
 			case 1:
-				read_msg(head, total_disp, false, "", "");
+				read_msg(head, total_disp, false);
 				break;
 
 			case 2:
@@ -157,8 +156,7 @@ void user::msg_options(string title, msg *head)
 }
 
 //to read a certain msg
-void user::read_msg(msg *head, int total, bool starred, string title,
-		string cmp)
+void user::read_msg(msg *head, int total, bool starred)
 {
 	int no;
 	if (head != NULL)
@@ -193,35 +191,6 @@ void user::read_msg(msg *head, int total, bool starred, string title,
 						break;
 				}
 				ptr = ptr->link;
-			}
-		}
-		else if (title != "")
-		{
-			if (title == "SENT TO ")
-			{
-				while (ptr != NULL)
-				{
-					if (ptr->to == cmp)
-					{
-						i++;
-						if (i == no)
-							break;
-					}
-					ptr = ptr->link;
-				}
-			}
-			else if (title == "RECEIVED FROM ")
-			{
-				while (ptr != NULL)
-				{
-					if (ptr->from == cmp)
-					{
-						i++;
-						if (i == no)
-							break;
-					}
-					ptr = ptr->link;
-				}
 			}
 		}
 		else
@@ -353,7 +322,7 @@ void user::search_msg(string title, msg *head)
 		return;
 	}
 
-	string cmp = "";
+	string cmp;
 
 	string R[] =
 	{ "unread", "read" };
@@ -428,7 +397,7 @@ void user::search_msg(string title, msg *head)
 				break;
 
 			case 1:
-				read_msg(head, i-1, false, title, cmp);
+				read_msg(head, i, false);
 				break;
 
 			case 2:
@@ -525,7 +494,7 @@ void user::starred_msg(string title, msg *head)
 				break;
 
 			case 1:
-				read_msg(head, i - 1, true, "", "");
+				read_msg(head, i - 1, true);
 				break;
 
 			case 2:
