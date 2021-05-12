@@ -82,7 +82,7 @@ class user
 		void search_msg(string title, msg **head);				//to search msg sent to/ received from a user
 		void starred_msg(string title, msg **head);				//displays list of starred msg
 		void view_trash();							//displays list of deleted msg
-		void trash_options(user *ptr);						//actions to perform on deleted msg
+		void trash_options();						//actions to perform on deleted msg
 		void del_permanently();							//to delete a msg from trash (permanently)
 		void read_trashMsg();							//to read a msg in trash
 
@@ -559,7 +559,7 @@ void user::view_trash()
 }
 
 //actions to perform on deleted msg
-void user::trash_options(user *ptr)
+void user::trash_options()
 {
 	int ch;
 	do
@@ -867,7 +867,7 @@ void messager::activity(user *ptr)
 				break;
 
 			case 6:
-				ptr->trash_options(ptr);
+				ptr->trash_options();
 				break;
 
 			case 7:
