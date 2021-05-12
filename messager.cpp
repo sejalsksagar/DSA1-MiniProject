@@ -324,11 +324,6 @@ void user::vec_read_msg(vector<msg*> results)
 
 void user::vec_del_msg(vector<msg*> results, msg **head)
 {
-	if (head == NULL)
-	{
-		cout << "No messages found.\n";
-		return;
-	}
 	unsigned int no;
 	cout << "\nEnter message no. to delete: ";
 	cin >> no;
@@ -358,7 +353,7 @@ void user::vec_del_msg(vector<msg*> results, msg **head)
 		delete ptr;
 		return;
 	}
-	for (unsigned int i = 1; i < no; i++)
+	for (ptr=*head; ptr!=results.at(no - 1);)
 	{
 		prev = ptr;
 		ptr = ptr->link;
@@ -385,7 +380,7 @@ void user::search_msg(string title, msg **head)
 
 	bool found = false;
 	msg *m = *head;
-	if (head == NULL)
+	if (*head == NULL)
 	{
 		cout << "\nNo messages to display yet!";
 		return;
