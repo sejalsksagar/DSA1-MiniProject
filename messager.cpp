@@ -31,8 +31,8 @@ class msg
 		bool read;		//true if msg has been read by the logged-in user
 		string dt; 		//date & time when msg was sent/received
 		string to;		//username of user to whom msg is sent
-		string from;	//username of user from whom msg is sent
-		string text;	//the actual message
+		string from;		//username of user from whom msg is sent
+		string text;		//the actual message
 		msg *link;
 
 		msg()
@@ -71,18 +71,18 @@ class user
 			prev = NULL;
 		}
 
-		void display_msgs(string title, msg *head);		//to display list of sent/inbox msg
-		void msg_options(string title, msg **head);		//actions user can perform with displayed list of msg
+		void display_msgs(string title, msg *head);				//to display list of sent/inbox msg
+		void msg_options(string title, msg **head);				//actions user can perform with displayed list of msg
 		void read_msg(msg *head);						//to read a certain msg
 		void del_msg(msg **head);						//to delete a certain msg
-		void starUnstar_msg(msg *m);					//to mark an msg as important (star) or unstar
-		void vec_read_msg(vector<msg*> results);		//to read msg from search results
-		void vec_del_msg(vector<msg*> results, msg **head); //to delete msg from search results
-		void vec_starUnstar(vector<msg*> results); 		//to star/unstar msg from search results
-		void search_msg(string title, msg **head);		//to search msg sent to/ received from a user
-		void starred_msg(string title, msg **head);		//displays list of starred msg
-		void view_trash();								//displays list of deleted msg
-		void trash_options(user *ptr);					//actions to perform on deleted msg
+		void starUnstar_msg(msg *m);						//to mark an msg as important (star) or unstar
+		void vec_read_msg(vector<msg*> results);				//to read msg from search results
+		void vec_del_msg(vector<msg*> results, msg **head); 			//to delete msg from search results
+		void vec_starUnstar(vector<msg*> results); 				//to star/unstar msg from search results
+		void search_msg(string title, msg **head);				//to search msg sent to/ received from a user
+		void starred_msg(string title, msg **head);				//displays list of starred msg
+		void view_trash();							//displays list of deleted msg
+		void trash_options(user *ptr);						//actions to perform on deleted msg
 		void del_permanently();							//to delete a msg from trash (permanently)
 		void read_trashMsg();							//to read a msg in trash
 
@@ -444,6 +444,7 @@ void user::search_msg(string title, msg **head)
 	} while (ch != 0);
 }
 
+//displays list of starred msg
 void user::starred_msg(string title, msg **head)
 {
 
@@ -598,6 +599,7 @@ void user::del_permanently()
 		cout << "Invalid message no.\n";
 		return;
 	}
+
 	trash.erase(trash.begin() + no - 1);
 	cout << "Message permanently deleted\n";
 }
@@ -625,22 +627,24 @@ void user::read_trashMsg()
 
 class messager
 {
-		user *start;	//start pointer of user DLL
+		user *start;		//start pointer of user DLL
+		user *last;		//pointer to last node of user DLL
 	public:
 		messager()
 		{
 			start = NULL;
+			last = NULL;
 		}
 
-		bool is_empty();	//returns true if no user has created account yet
-		user* accept();		//takes input required while creating a new account
-		void create(); 	//creates new user account & adds it to user DLL(sign-up)
+		bool is_empty();			//returns true if no user has created account yet
+		user* accept();				//takes input required while creating a new account
+		void create(); 				//creates new user account & adds it to user DLL(sign-up)
 		void login();  				//to login to an existing account
 		void remove(); 				//to delete your account
 		void change_pw();			//to change current password
-		void activity(user *ptr); //actions that user can perform while logged in
-		msg* msg_sent(); 	//takes input to send msg, updates receiver's inbox & returns pointer to sent msg
-		void send_msg(user *ptr); //calls msg_sent() & updates user's sent msg sll
+		void activity(user *ptr); 		//actions that user can perform while logged in
+		msg* msg_sent(); 			//takes input to send msg, updates receiver's inbox & returns pointer to sent msg
+		void send_msg(user *ptr); 		//calls msg_sent() & updates user's sent msg sll
 };
 
 //returns true if no user has created account yet
@@ -684,18 +688,17 @@ user* messager::accept()
 //creates new user account & adds it to user dll(sign-up)
 void messager::create()
 {
-	user *tmp, *ptr;
-	tmp = accept();
+	user *tmp = accept();
 	if (is_empty())
+	{
 		start = tmp;
+		last = tmp;
+	}
 	else
 	{
-		ptr = start;
-		while (ptr->next != NULL)
-			ptr = ptr->next;
-
-		ptr->next = tmp;
-		tmp->prev = ptr;
+		last->next = tmp;
+		tmp->prev = last;
+		last = tmp;
 	}
 	cout << "\nYour account has been created successfully!";
 }
@@ -752,7 +755,7 @@ void messager::remove()
 			{
 				do
 				{
-					cout << "Are you sure you want to delete your account?(Y/N) ";
+					cout << "Are you sure you want to delete your account?(Y/N): ";
 					cin >> ch;
 					if (ch == 'N') return;
 					else if (ch == 'Y') break;
