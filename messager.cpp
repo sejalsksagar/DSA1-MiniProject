@@ -12,12 +12,12 @@ int input_num(string prompt)
 	int ch;
 	cout<<prompt;
 	cin >> ch;
-	while (std::cin.fail())
+	while (cin.fail())
 	{
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "\nInvalid input. Try again. \n"<<prompt;
-		std::cin >> ch;
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		cout << "\nInvalid input. Try again. \n"<<prompt;
+		cin >> ch;
 	}
 	return ch;
 }
@@ -545,7 +545,7 @@ void user::view_trash()
 				<< m.to << setw(15) << m.text.substr(0, 8) << "..." << setw(14)
 				<< m.dt.substr(4, 6) << setw(10) << setw(10) << R[m.read]
 				<< setw(14) << S[m.star];
-		cout< "\n-------------------------------------------------------------------------------------------------";
+		cout<< "\n-------------------------------------------------------------------------------------------------";
 	}
 }
 
