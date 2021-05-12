@@ -1,0 +1,1169 @@
+OUTPUT FOR MINI PROJECT "MESSAGER" (CPP):-
+
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 1
+
+----------------------------------------
+Enter username to create : ketki_kothale
+
+Create password: 2370
+
+Your account has been created successfully!
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 1
+
+----------------------------------------
+Enter username to create : sejal_8
+
+Create password: 2372
+
+Your account has been created successfully!
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 1
+
+----------------------------------------
+Enter username to create : Amruta_kot
+
+Create password: 2369
+
+Your account has been created successfully!
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 1
+
+----------------------------------------
+Enter username to create : ask_kul
+
+Create password: 2373
+
+Your account has been created successfully!
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 3
+
+----------------------------------------
+Enter username: ask_kul
+
+Enter the password: 1234
+
+Incorrect password....please try again.
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 3
+
+----------------------------------------
+Enter username: ask
+
+Username not found.
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 3
+
+----------------------------------------
+Enter username: ask_kul
+
+Enter the password: 2373
+
+Are you sure you want to delete your account?(Y/N): N
+
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 3
+
+----------------------------------------
+Enter username: ask_kul
+
+Enter the password: 2373
+
+Are you sure you want to delete your account?(Y/N): Y
+
+Your account has been deleted successfully!
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 2
+
+----------------------------------------
+Enter username: ask_kul
+
+Username not found.
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 4
+
+----------------------------------------
+Enter username: sejal_8
+
+Enter previous password: 2371
+
+Incorrect previous password.
+
+Enter previous password: 2372
+
+Enter new password : 2001
+
+Your password has been changed successfully!
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 4
+
+----------------------------------------
+Enter username: ask_kul
+
+Username not found.
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 2
+
+----------------------------------------
+Enter username: sejal_8
+
+Enter password: 2372
+
+Incorrect password. Try again.
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 2
+
+----------------------------------------
+Enter username: sejal_8
+
+Enter password: 2001
+
+Successfully logged in.
+************* HELLO @sejal_8 ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 2
+
+------------------------------------------
+Enter username of user to message : ketki_kothale
+
+Enter message you want to send to @ketki_kothale :
+Hii, what are u doing?
+
+Message sent successfully to @ketki_kothale
+************* HELLO @sejal_8 ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 2
+
+------------------------------------------
+Enter username of user to message : amruta_kot
+
+Entered username doesn't exist.
+Enter username of user to message : Amruta_kot
+
+Enter message you want to send to @Amruta_kot :
+How are you?
+
+Message sent successfully to @Amruta_kot
+************* HELLO @sejal_8 ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 2
+
+------------------------------------------
+Enter username of user to message : ketki_kothale
+
+Enter message you want to send to @ketki_kothale :
+Our mini project is completed.
+
+Message sent successfully to @ketki_kothale
+************* HELLO @sejal_8 ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 2
+
+------------------------------------------
+Enter username of user to message : Amruta_kot
+
+Enter message you want to send to @Amruta_kot :
+hello
+
+Message sent successfully to @Amruta_kot
+************* HELLO @sejal_8 ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 3
+
+------------------------------------------
+
+******************************* SENT *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8     Amruta_kot          hello...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2        sejal_8  ketki_kothale       Our mini...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8     Amruta_kot       How are ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    4        sejal_8  ketki_kothale       Hii, wha...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* SENT OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 1
+
+---------------------------------------------
+Enter message no. to read: 1
+
+..................................................................
+************** MESSAGE 1 **************
+From : sejal_8
+To : Amruta_kot
+When : Wed May 12 21:32:45 2021
+
+Message : 
+hello
+...................................................................
+
+******************************* SENT *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8     Amruta_kot          hello...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2        sejal_8  ketki_kothale       Our mini...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8     Amruta_kot       How are ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    4        sejal_8  ketki_kothale       Hii, wha...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* SENT OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 1
+
+---------------------------------------------
+Enter message no. to read: 2
+
+..................................................................
+************** MESSAGE 2 **************
+From : sejal_8
+To : ketki_kothale
+When : Wed May 12 21:32:17 2021
+
+Message : 
+Our mini project is completed.
+...................................................................
+
+******************************* SENT *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8     Amruta_kot          hello...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2        sejal_8  ketki_kothale       Our mini...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8     Amruta_kot       How are ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    4        sejal_8  ketki_kothale       Hii, wha...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* SENT OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 2
+
+---------------------------------------------
+Enter message no. to delete: 3
+Message deleted successfully!!
+
+******************************* SENT *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8     Amruta_kot          hello...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2        sejal_8  ketki_kothale       Our mini...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8  ketki_kothale       Hii, wha...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* SENT OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 3
+
+---------------------------------------------
+Enter message no. to star/unstar: 2
+Message no. 2 has been starred.
+
+******************************* SENT *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8     Amruta_kot          hello...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2        sejal_8  ketki_kothale       Our mini...        May 12      read       starred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8  ketki_kothale       Hii, wha...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* SENT OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 0
+
+---------------------------------------------
+************* HELLO @sejal_8 ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 3
+
+------------------------------------------
+
+******************************* SENT *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8     Amruta_kot          hello...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2        sejal_8  ketki_kothale       Our mini...        May 12      read       starred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8  ketki_kothale       Hii, wha...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* SENT OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 0
+
+---------------------------------------------
+************* HELLO @sejal_8 ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 4
+
+------------------------------------------
+
+Enter the username: ketki_kothale
+
+**************************** MESSAGES SENT TO ketki_kothale ****************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8  ketki_kothale       Our mini...        May 12      read       starred
+-------------------------------------------------------------------------------------------------
+    2        sejal_8  ketki_kothale       Hii, wha...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* MESSAGE OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 0
+
+---------------------------------------------
+************* HELLO @sejal_8 ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 6
+
+------------------------------------------
+
+******************************* TRASH *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8     Amruta_kot       How are ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* TRASH OPTIONS **********
+0. Exit
+1. Delete a message permanently
+2. View a message
+Enter your choice: 1
+
+---------------------------------------------
+Enter message no. to delete: 1
+Message permanently deleted
+Trash empty
+
+************* HELLO @sejal_8 ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 8
+
+------------------------------------------
+
+**************************** STARRED MESSAGES IN SENTBOX  ****************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8  ketki_kothale       Our mini...        May 12      read       starred
+-------------------------------------------------------------------------------------------------
+********* MESSAGE OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 3
+
+---------------------------------------------
+Enter message no. to star/unstar: 1
+Message no. 1 has been unstarred.
+
+No messages found!
+
+************* HELLO @sejal_8 ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 0
+
+------------------------------------------
+
+Successfully logged out.
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 2
+
+----------------------------------------
+Enter username: ketki_kothale
+
+Enter password: 2370
+
+Successfully logged in.
+************* HELLO @ketki_kothale ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 1
+
+------------------------------------------
+
+******************************* INBOX *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8  ketki_kothale       Our mini...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+    2        sejal_8  ketki_kothale       Hii, wha...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+********* INBOX OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 1
+
+---------------------------------------------
+Enter message no. to read: 1
+
+..................................................................
+************** MESSAGE 1 **************
+From : sejal_8
+To : ketki_kothale
+When : Wed May 12 21:32:17 2021
+
+Message : 
+Our mini project is completed.
+...................................................................
+
+******************************* INBOX *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8  ketki_kothale       Our mini...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2        sejal_8  ketki_kothale       Hii, wha...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+********* INBOX OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 2
+
+---------------------------------------------
+Enter message no. to delete: 1
+Message deleted successfully!!
+
+******************************* INBOX *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8  ketki_kothale       Hii, wha...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+********* INBOX OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 3
+
+---------------------------------------------
+Enter message no. to star/unstar: 1
+Message no. 1 has been starred.
+
+******************************* INBOX *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8  ketki_kothale       Hii, wha...        May 12    unread       starred
+-------------------------------------------------------------------------------------------------
+********* INBOX OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 0
+
+---------------------------------------------
+************* HELLO @ketki_kothale ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 2
+
+------------------------------------------
+Enter username of user to message : sejal_8
+
+Enter message you want to send to @sejal_8 :
+Working on next assignment
+
+Message sent successfully to @sejal_8
+************* HELLO @ketki_kothale ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 2
+
+------------------------------------------
+Enter username of user to message : Amruta_kot
+
+Enter message you want to send to @Amruta_kot :
+What's up
+
+Message sent successfully to @Amruta_kot
+************* HELLO @ketki_kothale ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 2
+
+------------------------------------------
+Enter username of user to message : Amruta_kot
+
+Enter message you want to send to @Amruta_kot :
+How was your working experiance with us?
+
+Message sent successfully to @Amruta_kot
+************* HELLO @ketki_kothale ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 3
+
+------------------------------------------
+
+******************************* SENT *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1  ketki_kothale     Amruta_kot       How was ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2  ketki_kothale     Amruta_kot       What's u...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    3  ketki_kothale        sejal_8       Working ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* SENT OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 0
+
+---------------------------------------------
+************* HELLO @ketki_kothale ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 5
+
+------------------------------------------
+
+Enter the username: sejal_8
+
+**************************** MESSAGES RECEIVED FROM sejal_8 ****************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8  ketki_kothale       Hii, wha...        May 12    unread       starred
+-------------------------------------------------------------------------------------------------
+********* MESSAGE OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 0
+
+---------------------------------------------
+************* HELLO @ketki_kothale ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 7
+
+------------------------------------------
+
+**************************** STARRED MESSAGES IN INBOX  ****************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8  ketki_kothale       Hii, wha...        May 12    unread       starred
+-------------------------------------------------------------------------------------------------
+********* MESSAGE OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 0
+
+---------------------------------------------
+************* HELLO @ketki_kothale ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 6
+
+------------------------------------------
+
+******************************* TRASH *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8  ketki_kothale       Our mini...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* TRASH OPTIONS **********
+0. Exit
+1. Delete a message permanently
+2. View a message
+Enter your choice: 2
+
+---------------------------------------------
+Enter message no. to read: 1
+
+..................................................................
+************** MESSAGE 1 **************
+From : sejal_8
+To : ketki_kothale
+When : Wed May 12 21:32:17 2021
+
+Message : 
+Our mini project is completed.
+...................................................................
+
+******************************* TRASH *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8  ketki_kothale       Our mini...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* TRASH OPTIONS **********
+0. Exit
+1. Delete a message permanently
+2. View a message
+Enter your choice: 1
+
+---------------------------------------------
+Enter message no. to delete: 1
+Message permanently deleted
+Trash empty
+
+************* HELLO @ketki_kothale ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 0
+
+------------------------------------------
+
+Successfully logged out.
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 2
+
+----------------------------------------
+Enter username: Amruta_kot
+
+Enter password: 2369
+
+Successfully logged in.
+************* HELLO @Amruta_kot ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 1
+
+------------------------------------------
+
+******************************* INBOX *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1  ketki_kothale     Amruta_kot       How was ...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+    2  ketki_kothale     Amruta_kot       What's u...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8     Amruta_kot          hello...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+    4        sejal_8     Amruta_kot       How are ...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+********* INBOX OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 1
+
+---------------------------------------------
+Enter message no. to read: 1
+
+..................................................................
+************** MESSAGE 1 **************
+From : ketki_kothale
+To : Amruta_kot
+When : Wed May 12 21:44:17 2021
+
+Message : 
+How was your working experiance with us?
+...................................................................
+
+******************************* INBOX *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1  ketki_kothale     Amruta_kot       How was ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2  ketki_kothale     Amruta_kot       What's u...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8     Amruta_kot          hello...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+    4        sejal_8     Amruta_kot       How are ...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+********* INBOX OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 1
+
+---------------------------------------------
+Enter message no. to read: 2
+
+..................................................................
+************** MESSAGE 2 **************
+From : ketki_kothale
+To : Amruta_kot
+When : Wed May 12 21:41:41 2021
+
+Message : 
+What's up
+...................................................................
+
+******************************* INBOX *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1  ketki_kothale     Amruta_kot       How was ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2  ketki_kothale     Amruta_kot       What's u...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8     Amruta_kot          hello...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+    4        sejal_8     Amruta_kot       How are ...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+********* INBOX OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 3
+
+---------------------------------------------
+Enter message no. to star/unstar: 3
+Message no. 3 has been starred.
+
+******************************* INBOX *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1  ketki_kothale     Amruta_kot       How was ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2  ketki_kothale     Amruta_kot       What's u...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8     Amruta_kot          hello...        May 12    unread       starred
+-------------------------------------------------------------------------------------------------
+    4        sejal_8     Amruta_kot       How are ...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+********* INBOX OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 2
+
+---------------------------------------------
+Enter message no. to delete: 4
+Message deleted successfully!!
+
+******************************* INBOX *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1  ketki_kothale     Amruta_kot       How was ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    2  ketki_kothale     Amruta_kot       What's u...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+    3        sejal_8     Amruta_kot          hello...        May 12    unread       starred
+-------------------------------------------------------------------------------------------------
+********* INBOX OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 0
+
+---------------------------------------------
+************* HELLO @Amruta_kot ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 3
+
+------------------------------------------
+
+******************************* SENT *******************************
+No messages to display yet!
+
+************* HELLO @Amruta_kot ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 5
+
+------------------------------------------
+
+Enter the username: sejal_8
+
+**************************** MESSAGES RECEIVED FROM sejal_8 ****************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8     Amruta_kot          hello...        May 12    unread       starred
+-------------------------------------------------------------------------------------------------
+********* MESSAGE OPTIONS **********
+0. Exit
+1. Read a message
+2. Delete a message
+3. Star/Unstar a message
+Enter your choice: 0
+
+---------------------------------------------
+************* HELLO @Amruta_kot ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 6
+
+------------------------------------------
+
+******************************* TRASH *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8     Amruta_kot       How are ...        May 12    unread     unstarred
+-------------------------------------------------------------------------------------------------
+********* TRASH OPTIONS **********
+0. Exit
+1. Delete a message permanently
+2. View a message
+Enter your choice: 2
+
+---------------------------------------------
+Enter message no. to read: 1
+
+..................................................................
+************** MESSAGE 1 **************
+From : sejal_8
+To : Amruta_kot
+When : Wed May 12 21:31:25 2021
+
+Message : 
+How are you?
+...................................................................
+
+******************************* TRASH *******************************
+-------------------------------------------------------------------------------------------------
+  No.           From             To        Message          When    Status       Starred
+-------------------------------------------------------------------------------------------------
+    1        sejal_8     Amruta_kot       How are ...        May 12      read     unstarred
+-------------------------------------------------------------------------------------------------
+********* TRASH OPTIONS **********
+0. Exit
+1. Delete a message permanently
+2. View a message
+Enter your choice: 0
+
+---------------------------------------------
+************* HELLO @Amruta_kot ! *************
+0. Logout
+1. Check inbox messages
+2. Send a message
+3. View sent messages
+4. Search messages sent to an user
+5. Search messages received from an user
+6. View deleted messages
+7. View starred messages in Inbox
+8. View starred messages in Sentbox
+Enter your choice: 0
+
+------------------------------------------
+
+Successfully logged out.
+----------------------------------------
+******** WELCOME TO MESSAGER **********
+0. Exit application
+1. Create new account
+2. Login to your account
+3. Delete an existing account
+4. Change Password
+Enter your choice: 0
+
+----------------------------------------
+********* PROGRAM ENDED **********
