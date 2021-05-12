@@ -31,8 +31,8 @@ class msg
 		bool read;		//true if msg has been read by the logged-in user
 		string dt; 		//date & time when msg was sent/received
 		string to;		//username of user to whom msg is sent
-		string from;	//username of user from whom msg is sent
-		string text;	//the actual message
+		string from;		//username of user from whom msg is sent
+		string text;		//the actual message
 		msg *link;
 
 		msg()
@@ -71,19 +71,19 @@ class user
 			prev = NULL;
 		}
 
-		void display_msgs(string title, msg *head);	//to display list of sent/inbox msg
-		void msg_options(string title, msg **head);	//actions user can perform with displayed list of msg
+		void display_msgs(string title, msg *head);				//to display list of sent/inbox msg
+		void msg_options(string title, msg **head);				//actions user can perform with displayed list of msg
 		void read_msg(msg *head);						//to read a certain msg
-		void del_msg(msg **head);					//to delete a certain msg
-		void starUnstar_msg(msg *m);//to mark an msg as important (star) or unstar
-		void vec_read_msg(vector<msg*> results);//to read msg from search results
-		void vec_del_msg(vector<msg*> results, msg **head); //to delete msg from search results
-		void vec_starUnstar(vector<msg*> results); //to star/unstar msg from search results
-		void search_msg(string title, msg **head);//to search msg sent to/ received from a user
-		void starred_msg(string title, msg **head);	//displays list of starred msg
-		void view_trash();						//displays list of deleted msg
-		void trash_options(user *ptr);		//actions to perform on deleted msg
-		void del_permanently();		//to delete a msg from trash (permanently)
+		void del_msg(msg **head);						//to delete a certain msg
+		void starUnstar_msg(msg *m);						//to mark an msg as important (star) or unstar
+		void vec_read_msg(vector<msg*> results);				//to read msg from search results
+		void vec_del_msg(vector<msg*> results, msg **head); 			//to delete msg from search results
+		void vec_starUnstar(vector<msg*> results); 				//to star/unstar msg from search results
+		void search_msg(string title, msg **head);				//to search msg sent to/ received from a user
+		void starred_msg(string title, msg **head);				//displays list of starred msg
+		void view_trash();							//displays list of deleted msg
+		void trash_options(user *ptr);						//actions to perform on deleted msg
+		void del_permanently();							//to delete a msg from trash (permanently)
 		void read_trashMsg();							//to read a msg in trash
 
 };
@@ -91,12 +91,9 @@ class user
 //to display list of sent/inbox msg
 void user::display_msgs(string title, msg *head)
 {
-	string R[] =
-	{ "unread", "read" };
-	string S[] =
-	{ "unstarred", "starred" };
-	cout << "\n******************************* " << title
-			<< " *******************************";
+	string R[] = { "unread", "read" };
+	string S[] = { "unstarred", "starred" };
+	cout <<"\n******************************* " <<title<< " *******************************";
 
 	if (head == NULL)
 		cout << "\nNo messages to display yet!\n";
@@ -104,13 +101,11 @@ void user::display_msgs(string title, msg *head)
 	else
 	{
 		int i = 1;
-		cout
-				<< "\n-------------------------------------------------------------------------------------------------";
+		cout << "\n-------------------------------------------------------------------------------------------------";
 		cout << "\n" << setw(5) << "No." << setw(15) << "From" << setw(15)
 				<< "To" << setw(15) << "Message" << setw(14) << "When"
 				<< setw(10) << "Status" << setw(14) << "Starred";
-		cout
-				<< "\n-------------------------------------------------------------------------------------------------";
+		cout << "\n-------------------------------------------------------------------------------------------------";
 
 		msg *m = head;
 		while (m != NULL)
@@ -119,8 +114,7 @@ void user::display_msgs(string title, msg *head)
 					<< m->to << setw(15) << m->text.substr(0, 8) << "..."
 					<< setw(14) << m->dt.substr(4, 6) << setw(10) << R[m->read]
 					<< setw(14) << S[m->star];
-			cout
-					<< "\n-------------------------------------------------------------------------------------------------";
+			cout << "\n-------------------------------------------------------------------------------------------------";
 			m = m->link;
 			i++;
 		}
@@ -184,28 +178,26 @@ void user::read_msg(msg *head)
 			return;
 		}
 	}
-	cout
-			<< "\n..................................................................";
+	cout << "\n..................................................................";
 	cout << "\n************** MESSAGE " << no << " **************";
 	cout << "\nFrom : " << ptr->from;
 	cout << "\nTo : " << ptr->to;
 	cout << "\nWhen : " << ptr->dt;
 	cout << "\nMessage : \n" << ptr->text;
-	cout
-			<< "\n...................................................................\n";
+	cout << "\n...................................................................\n";
 	ptr->read = true;
 }
 
 //to delete a certain msg //it adds the deleted msg to trash
 void user::del_msg(msg **head)
 {
-	int no;
 	if (*head == NULL)
 	{
 		cout << "No messages found.\n";
 		return;
 	}
-	no = input_num("\nEnter message no. to delete: ");
+
+	int no = input_num("\nEnter message no. to delete: ");
 
 	if (no < 1)
 	{
@@ -243,40 +235,36 @@ void user::del_msg(msg **head)
 //to mark an msg as important (star) or unstar
 void user::starUnstar_msg(msg *head)
 {
-	int no;
-	if (head != NULL)
-	{
-		no = input_num("\nEnter message no. to star/unstar: ");
+	int no = input_num("\nEnter message no. to star/unstar: ");
 
-		if (no < 1)
+	if (no < 1)
+	{
+		cout << "\nInvalid message no.";
+		return;
+	}
+	msg *ptr = head;
+	for (int i = 1; i < no; i++)
+	{
+		ptr = ptr->link;
+		if (ptr == NULL)
 		{
 			cout << "\nInvalid message no.";
 			return;
 		}
-		msg *ptr = head;
-		for (int i = 1; i < no; i++)
-		{
-			ptr = ptr->link;
-			if (ptr == NULL)
-			{
-				cout << "\nInvalid message no.";
-				return;
-			}
-		}
-		if (ptr->star == false)
-		{
-			ptr->star = true;
-			cout << "Message no. " << no << " has been starred.\n";
-		}
-		else
-		{
-			ptr->star = false;
-			cout << "Message no. " << no << " has been unstarred.\n";
-		}
+	}
+	if (ptr->star == false)
+	{
+		ptr->star = true;
+		cout << "Message no. " << no << " has been starred.\n";
+	}
+	else
+	{
+		ptr->star = false;
+		cout << "Message no. " << no << " has been unstarred.\n";
 	}
 }
 
-//to read msg from search results
+//to read msg from search results or from starred msg list
 void user::vec_read_msg(vector<msg*> results)
 {
 	unsigned int no = unsigned(input_num("\nEnter message no. to read: "));
@@ -288,19 +276,17 @@ void user::vec_read_msg(vector<msg*> results)
 	}
 
 	msg *ptr = results.at(no - 1);
-	cout
-			<< "\n..................................................................";
+	cout << "\n..................................................................";
 	cout << "\n************** MESSAGE " << no << " **************";
 	cout << "\nFrom : " << ptr->from;
 	cout << "\nTo : " << ptr->to;
 	cout << "\nWhen : " << ptr->dt;
 	cout << "\nMessage : \n" << ptr->text;
-	cout
-			<< "\n...................................................................\n";
+	cout << "\n...................................................................\n";
 	ptr->read = true;
 }
 
-//to delete msg from search results
+//to delete msg from search results or from starred msg list
 void user::vec_del_msg(vector<msg*> results, msg **head)
 {
 	unsigned int no = unsigned(input_num("\nEnter message no. to delete: "));
@@ -344,8 +330,7 @@ void user::vec_del_msg(vector<msg*> results, msg **head)
 //to star/unstar msg from search results
 void user::vec_starUnstar(vector<msg*> results)
 {
-	unsigned int no = unsigned(
-			input_num("\nEnter message no. to star/unstar: "));
+	unsigned int no = unsigned(input_num("\nEnter message no. to star/unstar: "));
 
 	if (no < 1 || no > results.size())
 	{
@@ -383,10 +368,8 @@ void user::search_msg(string title, msg **head)
 
 	string cmp;
 
-	string R[] =
-	{ "unread", "read" };
-	string S[] =
-	{ "unstarred", "starred" };
+	string R[] =  { "unread", "read" };
+	string S[] =  { "unstarred", "starred" };
 
 	int ch, i;
 	do
@@ -399,23 +382,20 @@ void user::search_msg(string title, msg **head)
 		{
 			if (title == "SENT TO ")
 				cmp = m->to;
-			else
+			else //"RECEIVED FROM "
 				cmp = m->from;
 
 			if (cmp == un)
 			{
 				if (!found)
 				{
-					cout << "\n**************************** MESSAGES " << title
-							<< un << " ****************************";
-					cout
-							<< "\n-------------------------------------------------------------------------------------------------";
-					cout << "\n" << setw(5) << "No." << setw(15) << "From"
+					cout<<"\n**************************** MESSAGES " <<title<< un << " ****************************";
+					cout<< "\n-------------------------------------------------------------------------------------------------";
+					cout<< "\n" << setw(5) << "No." << setw(15) << "From"
 							<< setw(15) << "To" << setw(15) << "Message"
 							<< setw(14) << "When" << setw(10) << "Status"
 							<< setw(14) << "Starred";
-					cout
-							<< "\n-------------------------------------------------------------------------------------------------";
+					cout<< "\n-------------------------------------------------------------------------------------------------";
 
 				}
 				i++;
@@ -426,8 +406,7 @@ void user::search_msg(string title, msg **head)
 						<< m->to << setw(15) << m->text.substr(0, 8) << "..."
 						<< setw(14) << m->dt.substr(4, 6) << setw(10)
 						<< R[m->read] << setw(14) << S[m->star];
-				cout
-						<< "\n-------------------------------------------------------------------------------------------------";
+				cout << "\n-------------------------------------------------------------------------------------------------";
 			}
 		}
 
@@ -452,7 +431,6 @@ void user::search_msg(string title, msg **head)
 
 			case 1:
 				vec_read_msg(results);
-
 				break;
 
 			case 2:
@@ -466,13 +444,12 @@ void user::search_msg(string title, msg **head)
 	} while (ch != 0);
 }
 
+//displays list of starred msg
 void user::starred_msg(string title, msg **head)
 {
 
-	string R[] =
-	{ "unread", "read" };
-	string S[] =
-	{ "unstarred", "starred" };
+	string R[] = { "unread", "read" };
+	string S[] = { "unstarred", "starred" };
 
 	msg *m = *head;
 	if (head == NULL)
@@ -498,17 +475,13 @@ void user::starred_msg(string title, msg **head)
 
 				if (!found)
 				{
-					cout
-							<< "\n**************************** STARRED MESSAGES IN "
-							<< title << " ****************************";
-					cout
-							<< "\n-------------------------------------------------------------------------------------------------";
+					cout << "\n**************************** STARRED MESSAGES IN "<< title << " ****************************";
+					cout << "\n-------------------------------------------------------------------------------------------------";
 					cout << "\n" << setw(5) << "No." << setw(15) << "From"
 							<< setw(15) << "To" << setw(15) << "Message"
 							<< setw(14) << "When" << setw(10) << "Status"
 							<< setw(14) << "Starred";
-					cout
-							<< "\n-------------------------------------------------------------------------------------------------";
+					cout << "\n-------------------------------------------------------------------------------------------------";
 				}
 				i++;
 				found = true;
@@ -518,8 +491,7 @@ void user::starred_msg(string title, msg **head)
 						<< m->to << setw(15) << m->text.substr(0, 8) << "..."
 						<< setw(14) << m->dt.substr(4, 6) << setw(10)
 						<< R[m->read] << setw(14) << S[m->star];
-				cout
-						<< "\n-------------------------------------------------------------------------------------------------";
+				cout << "\n-------------------------------------------------------------------------------------------------";
 			}
 		}
 
@@ -561,24 +533,19 @@ void user::starred_msg(string title, msg **head)
 //displays list of deleted msg
 void user::view_trash()
 {
-	string R[] =
-	{ "unread", "read" };
-	string S[] =
-	{ "unstarred", "starred" };
+	string R[] = { "unread", "read" };
+	string S[] = { "unstarred", "starred" };
 	if (trash.size() == 0)
 	{
 		cout << "Trash empty\n";
 		return;
 	}
-	cout
-			<< "\n******************************* TRASH *******************************";
-	cout
-			<< "\n-------------------------------------------------------------------------------------------------";
+	cout<< "\n******************************* TRASH *******************************";
+	cout<< "\n-------------------------------------------------------------------------------------------------";
 	cout << "\n" << setw(5) << "No." << setw(15) << "From" << setw(15) << "To"
 			<< setw(15) << "Message" << setw(14) << "When" << setw(10)
 			<< "Status" << setw(14) << "Starred";
-	cout
-			<< "\n-------------------------------------------------------------------------------------------------";
+	cout<< "\n-------------------------------------------------------------------------------------------------";
 
 	for (unsigned int i = 0; i < trash.size(); i++)
 	{
@@ -587,8 +554,7 @@ void user::view_trash()
 				<< m.to << setw(15) << m.text.substr(0, 8) << "..." << setw(14)
 				<< m.dt.substr(4, 6) << setw(10) << setw(10) << R[m.read]
 				<< setw(14) << S[m.star];
-		cout
-				<< "\n-------------------------------------------------------------------------------------------------";
+		cout<< "\n-------------------------------------------------------------------------------------------------";
 	}
 }
 
@@ -633,6 +599,7 @@ void user::del_permanently()
 		cout << "Invalid message no.\n";
 		return;
 	}
+
 	trash.erase(trash.begin() + no - 1);
 	cout << "Message permanently deleted\n";
 }
@@ -648,36 +615,36 @@ void user::read_trashMsg()
 		return;
 	}
 
-	cout
-			<< "\n..................................................................";
+	cout << "\n..................................................................";
 	cout << "\n************** MESSAGE " << no << " **************";
 	cout << "\nFrom : " << trash[no - 1].from;
 	cout << "\nTo : " << trash[no - 1].to;
 	cout << "\nWhen : " << trash[no - 1].dt;
 	cout << "\nMessage : \n" << trash[no - 1].text;
-	cout
-			<< "\n...................................................................\n";
+	cout << "\n...................................................................\n";
 	trash[no - 1].read = true;
 }
 
 class messager
 {
-		user *start;	//start pointer of user DLL
+		user *start;		//start pointer of user DLL
+		user *last;		//pointer to last node of user DLL
 	public:
 		messager()
 		{
 			start = NULL;
+			last = NULL;
 		}
 
-		bool is_empty();	//returns true if no user has created account yet
-		user* accept();		//takes input required while creating a new account
-		void create(); //creates new user account & adds it to user DLL(sign-up)
+		bool is_empty();			//returns true if no user has created account yet
+		user* accept();				//takes input required while creating a new account
+		void create(); 				//creates new user account & adds it to user DLL(sign-up)
 		void login();  				//to login to an existing account
 		void remove(); 				//to delete your account
 		void change_pw();			//to change current password
-		void activity(user *ptr); //actions that user can perform while logged in
-		msg* msg_sent(); //takes input to send msg, updates receiver's inbox & returns pointer to sent msg
-		void send_msg(user *ptr); //calls msg_sent() & updates user's sent msg sll
+		void activity(user *ptr); 		//actions that user can perform while logged in
+		msg* msg_sent(); 			//takes input to send msg, updates receiver's inbox & returns pointer to sent msg
+		void send_msg(user *ptr); 		//calls msg_sent() & updates user's sent msg sll
 };
 
 //returns true if no user has created account yet
@@ -692,7 +659,7 @@ bool messager::is_empty()
 //takes input required while creating a new account
 user* messager::accept()
 {
-	int flag = 0;
+	bool un_exist = false;
 	user *tmp = new user();
 	user *ptr;
 	do
@@ -705,14 +672,14 @@ user* messager::accept()
 			if (ptr->username == tmp->username)
 			{
 				cout << "\nEntered username already exists.";
-				flag = 1;
+				un_exist = true;
 				break;
 			}
 			ptr = ptr->next;
 		}
 		if (ptr == NULL)
-			flag = 0;
-	} while (flag == 1);
+			un_exist = false;
+	} while (un_exist);
 	cout << "\nCreate password: ";
 	cin >> tmp->password;
 	return tmp;
@@ -721,18 +688,17 @@ user* messager::accept()
 //creates new user account & adds it to user dll(sign-up)
 void messager::create()
 {
-	user *tmp, *ptr;
-	tmp = accept();
+	user *tmp = accept();
 	if (is_empty())
+	{
 		start = tmp;
+		last = tmp;
+	}
 	else
 	{
-		ptr = start;
-		while (ptr->next != NULL)
-			ptr = ptr->next;
-
-		ptr->next = tmp;
-		tmp->prev = ptr;
+		last->next = tmp;
+		tmp->prev = last;
+		last = tmp;
 	}
 	cout << "\nYour account has been created successfully!";
 }
@@ -763,7 +729,7 @@ void messager::login()
 			}
 		}
 	}
-	cout << "Username not found.";
+	cout << "\nUsername not found.";
 }
 
 //to delete your account //removes ptr from user dll
@@ -789,15 +755,11 @@ void messager::remove()
 			{
 				do
 				{
-					cout
-							<< "Are you sure you want to delete your account?(Y/N) ";
+					cout << "Are you sure you want to delete your account?(Y/N): ";
 					cin >> ch;
-					if (ch == 'N')
-						return;
-					else if (ch == 'Y')
-						break;
-					else
-						cout << "\nInvalid choice. Try again.";
+					if (ch == 'N') return;
+					else if (ch == 'Y') break;
+					else cout << "\nInvalid choice. Try again.";
 				} while (ch != 'Y' || ch != 'N');
 
 				//if start node
@@ -852,7 +814,7 @@ void messager::change_pw()
 				}
 				else
 					cout << "\nIncorrect previous password.\n";
-			} while (1);
+			} while (true);
 		}
 	}
 	cout << "\nUsername not found.";
@@ -864,8 +826,7 @@ void messager::activity(user *ptr)
 	int ch;
 	do
 	{
-		cout << "\n************* HELLO @" << ptr->username
-				<< " ! *************";
+		cout << "\n************* HELLO @"<< ptr->username<< " ! *************";
 		cout << "\n0. Logout";
 		cout << "\n1. Check inbox messages";
 		cout << "\n2. Send a message";
@@ -929,7 +890,7 @@ msg* messager::msg_sent()
 {
 	msg *m = new msg();
 	user *ptrT; 				//pointer To whom user is sending msg
-	int flag = 0;
+	bool un_exist = false;
 	do
 	{
 		cout << "Enter username of user to message : ";
@@ -941,14 +902,13 @@ msg* messager::msg_sent()
 		{
 			if (ptrT->username == m->to)
 			{
-				cout << "\nEnter message you want to send to @" << m->to
-						<< " :\n";
+				cout << "\nEnter message you want to send to @" <<m->to<< " :\n";
 				getline(cin, m->text);
 
 				m->read = false;
-				time_t now = time(0); // current date/time based on current system
+				time_t now = time(0); 		// current date/time based on current system
 				m->dt = ctime(&now);		// convert now to string form
-				flag = 1;
+				un_exist = true;
 				cout << "\nMessage sent successfully to @" << m->to;
 
 				//insert new msg at beginning of ptrT's received msg sll
@@ -958,10 +918,10 @@ msg* messager::msg_sent()
 			}
 		}
 
-		if (ptrT == NULL)
+		if (ptrT == NULL) //!un_exist
 			cout << "\nEntered username doesn't exist.\n";
 
-	} while (flag == 0);
+	} while (un_exist == false);
 	return m;
 }
 
