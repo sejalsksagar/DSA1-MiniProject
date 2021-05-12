@@ -600,8 +600,10 @@ void user::del_permanently()
 		return;
 	}
 
+	msg m = trash.at(no - 1);
 	trash.erase(trash.begin() + no - 1);
 	cout << "Message permanently deleted\n";
+	delete &m;
 }
 
 //to read a msg in trash
