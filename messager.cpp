@@ -62,6 +62,7 @@ class user
 		void starUnstar_msg(msg *m);//to mark an msg as important (star) or unstar
 		void vec_read_msg(vector<msg*> results);
 		void vec_del_msg(vector<msg*> results, msg **head);
+		void vec_starUnstar(vector<msg*>);
 		void search_msg(string title, msg **head);//to search msg sent to/ received from a user
 		void starred_msg(string title, msg **head);	//displays list of starred msg
 		void view_trash();						//displays list of deleted msg
@@ -324,11 +325,6 @@ void user::vec_read_msg(vector<msg*> results)
 
 void user::vec_del_msg(vector<msg*> results, msg **head)
 {
-	if (head == NULL)
-	{
-		cout << "No messages found.\n";
-		return;
-	}
 	unsigned int no;
 	cout << "\nEnter message no. to delete: ";
 	cin >> no;
@@ -358,7 +354,7 @@ void user::vec_del_msg(vector<msg*> results, msg **head)
 		delete ptr;
 		return;
 	}
-	for (unsigned int i = 1; i < no; i++)
+	for (ptr = *head; ptr != results.at(no - 1);)
 	{
 		prev = ptr;
 		ptr = ptr->link;
@@ -376,6 +372,39 @@ void user::vec_del_msg(vector<msg*> results, msg **head)
 	delete ptr;
 }
 
+void user::vec_starUnstar(vector<msg*> results)
+{
+	unsigned int no;
+	cout << "\nEnter message no. to star/unstar: ";
+	cin >> no;
+	while (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout
+				<< "\nInvalid choice. Try again. \nEnter message no. to read: ";
+		std::cin >> no;
+	}
+
+	if (no < 1 || no > results.size())
+	{
+		cout << "\nInvalid message no.";
+		return;
+	}
+
+	msg *ptr = results.at(no - 1);
+	if (ptr->star)
+	{
+		ptr->star = false;
+		cout << "Message no. " << no << " has been unstarred.\n";
+	}
+	else
+	{
+		ptr->star = true;
+		cout << "Message no. " << no << " has been starred.\n";
+	}
+}
+
 //to search msg sent to/ received from a user
 void user::search_msg(string title, msg **head)
 {
@@ -385,7 +414,7 @@ void user::search_msg(string title, msg **head)
 
 	bool found = false;
 	msg *m = *head;
-	if (head == NULL)
+	if (*head == NULL)
 	{
 		cout << "\nNo messages to display yet!";
 		return;
@@ -477,9 +506,9 @@ void user::search_msg(string title, msg **head)
 				vec_del_msg(results, head);
 				break;
 
-				//			case 3:
-				//				starUnstar_msg(head);
-				//				break;
+			case 3:
+				vec_starUnstar(results);
+				break;
 		}
 	} while (ch != 0);
 }
@@ -578,7 +607,7 @@ void user::starred_msg(string title, msg **head)
 				break;
 
 			case 3:
-				//starUnstar_msg(head);
+				vec_starUnstar(results);
 				break;
 		}
 	} while (ch != 0);
