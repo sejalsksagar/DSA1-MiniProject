@@ -585,7 +585,7 @@ void user::trash_options()
 void user::del_permanently()
 {
 	unsigned int no = unsigned(input_num("\nEnter message no. to delete: "));
-	if (no > trash.size() || no < 0)
+	if (no > trash.size() || no < 1)
 	{
 		cout << "Invalid message no.\n";
 		return;
