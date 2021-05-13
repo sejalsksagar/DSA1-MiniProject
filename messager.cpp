@@ -26,11 +26,11 @@ int input_num(string prompt)
 class msg
 {
 	public:
-		bool star;		//true if msg is starred
-		bool sent;		//true if msg has been sent to whom the user wishes to
-		bool read;		//true if msg has been read by the logged-in user
-		string dt; 		//date & time when msg was sent/received
-		string to;		//username of user to whom msg is sent
+		bool star;			//true if msg is starred
+		bool sent;			//true if msg has been sent to whom the user wishes to
+		bool read;			//true if msg has been read by the logged-in user
+		string dt; 			//date & time when msg was sent/received
+		string to;			//username of user to whom msg is sent
 		string from;		//username of user from whom msg is sent
 		string text;		//the actual message
 		msg *link;
@@ -56,7 +56,7 @@ class user
 		string password;
 		msg *headS; 			//sent msg SLL head
 		msg *headR; 			//received msg SLL head
-		vector<msg> trash;		//vector of deleted msg
+		vector<msg*> trash;		//vector of deleted msg
 		user *next;
 		user *prev;
 		friend class messager;
@@ -73,18 +73,17 @@ class user
 
 		void display_msgs(string title, msg *head);				//to display list of sent/inbox msg
 		void msg_options(string title, msg **head);				//actions user can perform with displayed list of msg
-		void read_msg(msg *head);						//to read a certain msg
-		void del_msg(msg **head);						//to delete a certain msg
-		void starUnstar_msg(msg *m);						//to mark an msg as important (star) or unstar
+		void read_msg(msg *head);								//to read a certain msg
+		void del_msg(msg **head);								//to delete a certain msg
+		void starUnstar_msg(msg *m);							//to mark an msg as important (star) or unstar
 		void vec_read_msg(vector<msg*> results);				//to read msg from search results
-		void vec_del_msg(vector<msg*> results, msg **head); 			//to delete msg from search results
+		void vec_del_msg(vector<msg*> results, msg **head); 	//to delete msg from search results
 		void vec_starUnstar(vector<msg*> results); 				//to star/unstar msg from search results
 		void search_msg(string title, msg **head);				//to search msg sent to/ received from a user
 		void starred_msg(string title, msg **head);				//displays list of starred msg
-		void view_trash();							//displays list of deleted msg
-		void trash_options();						//actions to perform on deleted msg
-		void del_permanently();							//to delete a msg from trash (permanently)
-		void read_trashMsg();							//to read a msg in trash
+		void trash_options();									//actions to perform on deleted msg
+		void del_permanently();									//to delete a msg from trash (permanently)
+		void read_trashMsg();									//to read a msg in trash
 
 };
 
@@ -211,8 +210,7 @@ void user::del_msg(msg **head)
 	{
 		*head = (*head)->link;
 		cout << "Message deleted successfully!!\n";
-		trash.push_back(*ptr);
-		delete ptr;
+		trash.push_back(ptr);
 		return;
 	}
 
@@ -227,9 +225,8 @@ void user::del_msg(msg **head)
 		}
 	}
 	prev->link = ptr->link;
-	trash.push_back(*ptr);
+	trash.push_back(ptr);
 	cout << "Message deleted successfully!!\n";
-	delete ptr;
 }
 
 //to mark an msg as important (star) or unstar
@@ -304,9 +301,8 @@ void user::vec_del_msg(vector<msg*> results, msg **head)
 	{
 		*head = (*head)->link;
 		cout << "\nMessage deleted successfully!";
-		trash.push_back(*ptr);
+		trash.push_back(ptr);
 		results.erase(results.begin() + no - 1);
-		delete ptr;
 		return;
 	}
 	for (ptr = *head; ptr != results.at(no - 1);)
@@ -321,10 +317,9 @@ void user::vec_del_msg(vector<msg*> results, msg **head)
 	}
 	prev->link = ptr->link;
 	ptr = results.at(no - 1);
-	trash.push_back(*ptr);
+	trash.push_back(ptr);
 	results.erase(results.begin() + no - 1);
 	cout << "Message deleted successfully!!\n";
-	delete ptr;
 }
 
 //to star/unstar msg from search results
@@ -530,43 +525,35 @@ void user::starred_msg(string title, msg **head)
 
 }
 
-//displays list of deleted msg
-void user::view_trash()
-{
-	string R[] = { "unread", "read" };
-	string S[] = { "unstarred", "starred" };
-	if (trash.size() == 0)
-	{
-		cout << "Trash empty\n";
-		return;
-	}
-	cout<< "\n******************************* TRASH *******************************";
-	cout<< "\n-------------------------------------------------------------------------------------------------";
-	cout << "\n" << setw(5) << "No." << setw(15) << "From" << setw(15) << "To"
-			<< setw(15) << "Message" << setw(14) << "When" << setw(10)
-			<< "Status" << setw(14) << "Starred";
-	cout<< "\n-------------------------------------------------------------------------------------------------";
-
-	for (unsigned int i = 0; i < trash.size(); i++)
-	{
-		msg m = trash[i];
-		cout << "\n" << setw(5) << i + 1 << setw(15) << m.from << setw(15)
-				<< m.to << setw(15) << m.text.substr(0, 8) << "..." << setw(14)
-				<< m.dt.substr(4, 6) << setw(10) << setw(10) << R[m.read]
-				<< setw(14) << S[m.star];
-		cout<< "\n-------------------------------------------------------------------------------------------------";
-	}
-}
-
 //actions to perform on deleted msg
 void user::trash_options()
 {
 	int ch;
 	do
 	{
-		view_trash();
-		if (trash.size() == 0)
+		string R[] = { "unread", "read" };
+		string S[] = { "unstarred", "starred" };
+		if (this->trash.size() == 0)
+		{
+			cout << "Trash empty\n";
 			return;
+		}
+		cout<< "\n******************************* TRASH *******************************";
+		cout<< "\n-------------------------------------------------------------------------------------------------";
+		cout << "\n" << setw(5) << "No." << setw(15) << "From" << setw(15) << "To"
+				<< setw(15) << "Message" << setw(14) << "When" << setw(10)
+				<< "Status" << setw(14) << "Starred";
+		cout<< "\n-------------------------------------------------------------------------------------------------";
+
+		for (unsigned int i = 0; i < this->trash.size(); i++)
+		{
+			msg *m = this->trash[i];
+			cout << "\n" << setw(5) << i+1 << setw(15) << m->from << setw(15)
+								<< m->to << setw(15) << m->text.substr(0, 8) << "..."
+								<< setw(14) << m->dt.substr(4, 6) << setw(10) << R[m->read]<< setw(14) << S[m->star];
+			cout << "\n-------------------------------------------------------------------------------------------------";
+		}
+
 		cout << "\n********* TRASH OPTIONS **********";
 		cout << "\n0. Exit";
 		cout << "\n1. Delete a message permanently";
@@ -594,14 +581,16 @@ void user::trash_options()
 void user::del_permanently()
 {
 	unsigned int no = unsigned(input_num("\nEnter message no. to delete: "));
-	if (no > trash.size() || no < 0)
+	if (no > trash.size() || no < 1)
 	{
 		cout << "Invalid message no.\n";
 		return;
 	}
 
+	msg *m = trash[no - 1];
 	trash.erase(trash.begin() + no - 1);
 	cout << "Message permanently deleted\n";
+	delete m;
 }
 
 //to read a msg in trash
@@ -617,18 +606,18 @@ void user::read_trashMsg()
 
 	cout << "\n..................................................................";
 	cout << "\n************** MESSAGE " << no << " **************";
-	cout << "\nFrom : " << trash[no - 1].from;
-	cout << "\nTo : " << trash[no - 1].to;
-	cout << "\nWhen : " << trash[no - 1].dt;
-	cout << "\nMessage : \n" << trash[no - 1].text;
+	cout << "\nFrom : " << trash[no - 1]->from;
+	cout << "\nTo : " << trash[no - 1]->to;
+	cout << "\nWhen : " << trash[no - 1]->dt;
+	cout << "\nMessage : \n" << trash[no - 1]->text;
 	cout << "\n...................................................................\n";
-	trash[no - 1].read = true;
+	trash[no - 1]->read = true;
 }
 
 class messager
 {
 		user *start;		//start pointer of user DLL
-		user *last;		//pointer to last node of user DLL
+		user *last;			//pointer to last node of user DLL
 	public:
 		messager()
 		{
@@ -643,7 +632,7 @@ class messager
 		void remove(); 				//to delete your account
 		void change_pw();			//to change current password
 		void activity(user *ptr); 		//actions that user can perform while logged in
-		msg* msg_sent(); 			//takes input to send msg, updates receiver's inbox & returns pointer to sent msg
+		msg* msg_sent(); 				//takes input to send msg, updates receiver's inbox & returns pointer to sent msg
 		void send_msg(user *ptr); 		//calls msg_sent() & updates user's sent msg sll
 };
 
