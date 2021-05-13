@@ -211,7 +211,7 @@ void user::del_msg(msg **head)
 		*head = (*head)->link;
 		cout << "Message deleted successfully!!\n";
 		trash.push_back(ptr);
-		delete ptr;
+		//delete ptr;
 		return;
 	}
 
@@ -228,7 +228,7 @@ void user::del_msg(msg **head)
 	prev->link = ptr->link;
 	trash.push_back(ptr);
 	cout << "Message deleted successfully!!\n";
-	delete ptr;
+	//delete ptr;
 }
 
 //to mark an msg as important (star) or unstar
@@ -305,7 +305,7 @@ void user::vec_del_msg(vector<msg*> results, msg **head)
 		cout << "\nMessage deleted successfully!";
 		trash.push_back(ptr);
 		results.erase(results.begin() + no - 1);
-		delete ptr;
+		//delete ptr;
 		return;
 	}
 	for (ptr = *head; ptr != results.at(no - 1);)
@@ -323,7 +323,7 @@ void user::vec_del_msg(vector<msg*> results, msg **head)
 	trash.push_back(ptr);
 	results.erase(results.begin() + no - 1);
 	cout << "Message deleted successfully!!\n";
-	delete ptr;
+	//delete ptr;
 }
 
 //to star/unstar msg from search results
@@ -552,9 +552,9 @@ void user::trash_options()
 		for (unsigned int i = 0; i < this->trash.size(); i++)
 		{
 			msg *m = this->trash[i];
-			cout << "\n" << setw(5) << i << setw(15) << m->from << setw(15)
-								<< m->to << setw(15) << m->text.substr(0, 8) << "...";
-								//<< setw(14) << m->dt.substr(4, 6) << setw(10) << R[m->read]<< setw(14) << S[m->star];
+			cout << "\n" << setw(5) << i+1 << setw(15) << m->from << setw(15)
+								<< m->to << setw(15) << m->text.substr(0, 8) << "..."
+								<< setw(14) << m->dt.substr(4, 6) << setw(10) << R[m->read]<< setw(14) << S[m->star];
 			cout << "\n-------------------------------------------------------------------------------------------------";
 		}
 
